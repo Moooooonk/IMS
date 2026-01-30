@@ -4,84 +4,152 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOON-KEY | 3D Computer Vision Researcher</title>
+    <meta name="description" content="3D Computer Vision Researcher specializing in geometric deep learning, neural implicit surfaces, and precision measurement systems.">
+    <meta name="keywords" content="3D Computer Vision, Deep Learning, Neural Networks, Geometric Reconstruction, Research">
+    <meta property="og:title" content="MOON-KEY | 3D Computer Vision Researcher">
+    <meta property="og:description" content="From mathematical formulations to neural implicit surfaces. Reconstructing reality through geometric intelligence.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#050508">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* 다크 모드 (기본) */
         :root {
             --bg: #050508;
             --accent: #00f2ff;
             --accent-secondary: #ff6b9d;
+            --accent-tertiary: #a855f7;
             --text: #ffffff;
-            --text-secondary: rgba(255,255,255,0.7);
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.1);
+            --text-secondary: rgba(255,255,255,0.6);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.08);
             --card-hover-bg: rgba(0, 242, 255, 0.05);
-            --font-main: 'Inter', sans-serif;
-            --particle-color: 0.0, 0.95, 1.0;
+            --font-main: 'Inter', -apple-system, sans-serif;
         }
 
-        /* 라이트 모드 */
         [data-theme="light"] {
-            --bg: #f5f5f7;
+            --bg: #fafafa;
             --accent: #0066cc;
             --accent-secondary: #cc3366;
-            --text: #1d1d1f;
-            --text-secondary: rgba(29,29,31,0.7);
-            --card-bg: rgba(0, 0, 0, 0.03);
-            --card-border: rgba(0, 0, 0, 0.1);
-            --card-hover-bg: rgba(0, 102, 204, 0.08);
-            --particle-color: 0.0, 0.4, 0.8;
+            --accent-tertiary: #7c3aed;
+            --text: #1a1a1a;
+            --text-secondary: rgba(26,26,26,0.6);
+            --card-bg: rgba(0, 0, 0, 0.02);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --card-hover-bg: rgba(0, 102, 204, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
             font-family: var(--font-main);
             overflow-x: hidden;
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.7;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* 테마 토글 버튼 */
+        /* 로딩 스크린 */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loader-text {
+            font-size: 2rem;
+            font-weight: 100;
+            letter-spacing: 8px;
+            color: var(--accent);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 사이드 네비게이션 */
+        .side-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--card-border);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-dot::before {
+            content: attr(data-label);
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: var(--text-secondary);
+        }
+        .nav-dot:hover::before { opacity: 1; }
+        .nav-dot:hover { border-color: var(--accent); }
+        .nav-dot.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        /* 테마 토글 */
         .theme-toggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 24px;
+            right: 24px;
             z-index: 1000;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             color: var(--text);
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
         }
-
         .theme-toggle:hover {
             border-color: var(--accent);
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(15deg);
         }
 
-        /* 3D 배경 */
+        /* 캔버스 */
         #canvas-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             z-index: -1;
         }
 
-        /* 컨텐츠 레이아웃 */
+        /* 메인 레이아웃 */
         main { position: relative; z-index: 1; }
 
         section {
@@ -89,231 +157,295 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 10vw;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
+            padding: 0 12vw;
+            position: relative;
         }
 
-        section.visible {
+        .label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        section.visible .label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        h1 {
+            font-size: clamp(4rem, 12vw, 9rem);
+            font-weight: 100;
+            letter-spacing: -4px;
+            line-height: 0.95;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        }
+        section.visible h1 {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .label {
-            font-family: monospace;
-            color: var(--accent);
-            letter-spacing: 4px;
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: -1px;
             margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+        }
+        section.visible h2 {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        h1 { font-size: 8rem; font-weight: 100; letter-spacing: -5px; }
-        h2 { font-size: 4rem; margin-bottom: 2rem; }
-        p { max-width: 600px; font-size: 1.2rem; color: var(--text-secondary); }
+        .subtitle {
+            max-width: 540px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+        section.visible .subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-        /* 블로그 카드 섹션 */
+        /* 스크롤 인디케이터 */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 8vh;
+            left: 12vw;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+        }
+        .scroll-line {
+            width: 40px;
+            height: 1px;
+            background: var(--accent);
+            transform-origin: left;
+            animation: expandLine 1.5s ease infinite;
+        }
+        @keyframes expandLine {
+            0%, 100% { transform: scaleX(0.5); opacity: 0.3; }
+            50% { transform: scaleX(1); opacity: 1; }
+        }
+        .scroll-text {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; }
+        }
+
+        /* 그리드 */
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
             margin-top: 3rem;
         }
 
+        /* 카드 */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             padding: 2rem;
             text-decoration: none;
             color: inherit;
-            transition: all 0.3s ease;
-            border-radius: 8px;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
         }
-
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .card:hover::before { opacity: 0.03; }
         .card:hover {
             border-color: var(--accent);
-            background: var(--card-hover-bg);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1);
         }
-
-        .card h3 { color: var(--accent); margin-bottom: 1rem; }
-
-        .card-small {
-            padding: 1.5rem;
+        section.visible .card {
+            opacity: 1;
+            transform: translateY(0);
         }
+        section.visible .card:nth-child(1) { transition-delay: 0.1s; }
+        section.visible .card:nth-child(2) { transition-delay: 0.2s; }
+        section.visible .card:nth-child(3) { transition-delay: 0.3s; }
+        section.visible .card:nth-child(4) { transition-delay: 0.4s; }
 
-        .card-small h3 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+            position: relative;
         }
-
-        .card-small p {
+        .card p {
             font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            position: relative;
         }
 
-        .card .tag {
+        .tag {
             display: inline-block;
-            font-size: 0.7rem;
-            padding: 0.25rem 0.5rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.3rem 0.6rem;
             border-radius: 4px;
             background: var(--accent);
             color: var(--bg);
-            margin-bottom: 0.75rem;
-            font-weight: 600;
+            margin-bottom: 1rem;
             letter-spacing: 1px;
         }
+        .tag.archive { background: var(--accent-secondary); }
+        .tag.project { background: var(--accent-tertiary); }
 
-        .card .tag.archive {
-            background: var(--accent-secondary);
-        }
-
-        /* 전문성 섹션 */
+        /* Expertise 카드 */
         .expertise-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            gap: 1.5rem;
             margin-top: 3rem;
         }
-
-        .expertise-item {
+        .expertise-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             padding: 2rem;
-            border-radius: 8px;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .expertise-card:hover {
+            border-color: var(--accent);
+            background: var(--card-hover-bg);
+        }
+        section.visible .expertise-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        section.visible .expertise-card:nth-child(1) { transition-delay: 0.1s; }
+        section.visible .expertise-card:nth-child(2) { transition-delay: 0.2s; }
+        section.visible .expertise-card:nth-child(3) { transition-delay: 0.3s; }
+        section.visible .expertise-card:nth-child(4) { transition-delay: 0.4s; }
+
+        .expertise-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .expertise-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Contact 섹션 */
+        #contact {
+            min-height: 60vh;
+        }
+        .contact-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+        }
+        section.visible .contact-links {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .contact-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
         }
-
-        .expertise-item:hover {
-            border-color: var(--accent);
-        }
-
-        .expertise-item h4 {
+        .contact-link:hover {
             color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            border-bottom-color: var(--accent);
         }
 
-        .expertise-item p {
-            font-size: 0.95rem;
-            max-width: none;
-        }
-
-        .expertise-item code {
-            background: rgba(0, 242, 255, 0.1);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: var(--accent);
-        }
-
-        [data-theme="light"] .expertise-item code {
-            background: rgba(0, 102, 204, 0.1);
-        }
-
-        /* 스크롤 가이드 */
-        .scroll-hint {
-            position: absolute;
-            bottom: 5vh;
-            left: 10vw;
+        /* Footer */
+        footer {
+            padding: 3rem 12vw;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.8rem;
-            letter-spacing: 2px;
-            opacity: 0.5;
+            color: var(--text-secondary);
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
         }
 
-        /* 모바일 반응형 */
+        /* 반응형 */
         @media (max-width: 768px) {
-            section {
-                padding: 0 5vw;
-                min-height: auto;
-                padding-top: 15vh;
-                padding-bottom: 15vh;
-            }
-
-            h1 {
-                font-size: 3.5rem;
-                letter-spacing: -2px;
-            }
-
-            h2 {
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-
-            .label {
-                font-size: 0.75rem;
-                letter-spacing: 2px;
-            }
-
-            .grid, .grid-3, .expertise-grid {
-                grid-template-columns: 1fr;
+            section { padding: 0 6vw; }
+            .side-nav { display: none; }
+            .grid, .expertise-grid { grid-template-columns: 1fr; }
+            .scroll-indicator { left: 6vw; }
+            footer {
+                flex-direction: column;
                 gap: 1rem;
+                text-align: center;
+                padding: 2rem 6vw;
             }
-
-            .card {
-                padding: 1.5rem;
-            }
-
-            .card h3 {
-                font-size: 1rem;
-            }
-
-            .card p {
-                font-size: 0.9rem;
-            }
-
-            .scroll-hint {
-                left: 5vw;
-                font-size: 0.7rem;
-            }
-
-            .theme-toggle {
-                width: 44px;
-                height: 44px;
-                top: 15px;
-                right: 15px;
-                font-size: 1.2rem;
-            }
-
-            .expertise-item {
-                padding: 1.5rem;
-            }
-
-            .expertise-item h4 {
-                font-size: 1rem;
-            }
+            .contact-links { justify-content: center; }
         }
 
-        /* 작은 모바일 화면 */
         @media (max-width: 480px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            section {
-                padding-top: 12vh;
-                padding-bottom: 12vh;
-            }
+            h1 { letter-spacing: -2px; }
+            .card, .expertise-card { padding: 1.5rem; }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- 테마 토글 버튼 -->
-    <button class="theme-toggle" id="themeToggle" aria-label="테마 변경">
+    <!-- 로딩 스크린 -->
+    <div class="loader" id="loader">
+        <span class="loader-text">MOON-KEY</span>
+    </div>
+
+    <!-- 사이드 네비게이션 -->
+    <nav class="side-nav" id="sideNav">
+        <div class="nav-dot active" data-section="hero" data-label="HOME"></div>
+        <div class="nav-dot" data-section="expertise" data-label="EXPERTISE"></div>
+        <div class="nav-dot" data-section="work" data-label="WORK"></div>
+        <div class="nav-dot" data-section="contact" data-label="CONTACT"></div>
+    </nav>
+
+    <!-- 테마 토글 -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <span id="themeIcon">☀️</span>
     </button>
 
@@ -321,51 +453,56 @@
 
     <main>
         <section id="hero">
-            <div class="label">3D COMPUTER VISION RESEARCHER</div>
+            <div class="label">3D COMPUTER VISION</div>
             <h1>MOON-KEY</h1>
-            <p>From mathematical formulations to neural implicit surfaces. Reconstructing reality through geometric intelligence.</p>
-            <div class="scroll-hint">SCROLL TO EXPLORE</div>
+            <p class="subtitle">From mathematical formulations to neural implicit surfaces. Reconstructing reality through geometric intelligence.</p>
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+                <span class="scroll-text">SCROLL</span>
+            </div>
         </section>
 
         <section id="expertise">
-            <div class="label">01 / EXPERTISE</div>
-            <h2>Core Competencies</h2>
+            <div class="label">EXPERTISE</div>
+            <h2>What I Do</h2>
             <div class="expertise-grid">
-                <div class="expertise-item">
+                <div class="expertise-card">
                     <h4>Geometric Deep Learning</h4>
-                    <p>3D 형상의 수리적 표현과 신경망 기반 복원 기술. 불완전한 스캔 데이터로부터 위상적 결함 없는 폐곡면을 생성하고 정밀 체적 측정까지 수행.</p>
+                    <p>3D 형상의 수리적 표현과 신경망 기반 복원. 불완전한 스캔 데이터로부터 위상적 결함 없는 폐곡면을 생성하고 정밀 체적 측정 수행.</p>
                 </div>
-                <div class="expertise-item">
-                    <h4>End-to-End Pipeline Architecture</h4>
-                    <p>센서 제어부터 후처리까지 전 과정 설계. 하드웨어-소프트웨어 간 데이터 흐름을 이해하고 최적의 시스템 아키텍처를 구축.</p>
+                <div class="expertise-card">
+                    <h4>End-to-End Pipeline</h4>
+                    <p>센서 제어부터 후처리까지 전 과정 설계. 하드웨어-소프트웨어 간 데이터 흐름을 이해하고 최적의 시스템 아키텍처 구축.</p>
                 </div>
-                <div class="expertise-item">
-                    <h4>Cross-Domain Methodology Transfer</h4>
-                    <p>한 도메인의 기술을 새로운 영역에 적용하여 연구 가치를 창출. 안면 복원에서 신체 측정으로, 의료에서 산업으로의 방법론 확장.</p>
+                <div class="expertise-card">
+                    <h4>Cross-Domain Transfer</h4>
+                    <p>한 도메인의 기술을 새로운 영역에 적용하여 연구 가치를 창출. 안면에서 신체로, 의료에서 산업으로의 방법론 확장.</p>
                 </div>
-                <div class="expertise-item">
-                    <h4>Precision-Critical Problem Solving</h4>
-                    <p>단위 오차, 좌표계 불일치, 스케일 왜곡 등 정밀도를 좌우하는 문제를 끝까지 추적. 학계 기준과 일치하는 검증 가능한 결과 도출.</p>
+                <div class="expertise-card">
+                    <h4>Precision Engineering</h4>
+                    <p>단위 오차, 좌표계 불일치, 스케일 왜곡 등 정밀도를 좌우하는 문제를 끝까지 추적. 검증 가능한 결과 도출.</p>
                 </div>
             </div>
         </section>
 
-        <section id="research">
-            <div class="label">02 / RESEARCH</div>
-            <h2>Technical Excellence</h2>
-            <p>
-                정밀 데이터 분석과 트러블 슈팅에 강점. 스케일 오류와 기하학적 왜곡을 시각화로 즉시 발견하고, 단위 변환 및 좌표계 오차를 집요하게 추적하여 학계 기준값(GT)과 일치하는 정확한 결과를 도출. 복셀 해상도와 메모리 비용의 최적 균형점을 찾는 PM급 리소스 배분 감각.
-            </p>
-        </section>
-
-        <section id="blog">
-            <div class="label">03 / INSIGHTS</div>
-            <h2>Publications & Archives</h2>
+        <section id="work">
+            <div class="label">WORK</div>
+            <h2>Projects & Writing</h2>
             <div class="grid">
+                <a href="https://dermamatch.pages.dev/" target="_blank" class="card">
+                    <span class="tag project">PROJECT</span>
+                    <h3>DermaMatch</h3>
+                    <p>피부 병변 분석을 위한 3D 비전 기반 매칭 시스템</p>
+                </a>
+                <a href="https://velleity-archive.pages.dev/" target="_blank" class="card">
+                    <span class="tag archive">ARCHIVE</span>
+                    <h3>Velleity Archive</h3>
+                    <p>사유의 조각들을 모아둔 디지털 아카이브</p>
+                </a>
                 <a href="https://moon-key.tistory.com/entry/Classical-vs-Deep-Learning-ICP%EC%99%80-DCP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D%EB%A7%A4%EC%9A%B0-%EC%89%AC%EC%9A%B4-%EC%84%A4%EB%AA%85" target="_blank" class="card">
                     <span class="tag">TECHNICAL</span>
-                    <h3>Classical vs Deep Learning: ICP와 DCP 알고리즘 비교 분석</h3>
-                    <p>수학적 불안정성을 SVD와 정규화로 극복하는 방법론 분석</p>
+                    <h3>ICP vs DCP Algorithm Analysis</h3>
+                    <p>Classical과 Deep Learning 기반 정합 알고리즘 비교</p>
                 </a>
                 <a href="https://moon-key.tistory.com/entry/%EB%82%B4%EC%9D%BC%EC%9D%80-%EB%8B%B9%EC%97%B0%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%98%A4%EB%8A%98%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%B3%80%EB%AA%85-%EC%97%86%EB%8A%94-%EC%82%B6%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC" target="_blank" class="card">
                     <span class="tag">ESSAY</span>
@@ -373,45 +510,53 @@
                     <p>오늘을 위한 변명 없는 삶에 대하여</p>
                 </a>
             </div>
-            <div class="grid" style="margin-top: 1.5rem;">
-                <a href="https://velleity-archive.pages.dev/" target="_blank" class="card card-small">
-                    <span class="tag archive">ARCHIVE</span>
-                    <h3>Velleity Archive</h3>
-                    <p>사유의 조각들을 모아둔 디지털 아카이브. 불완전한 의지들의 기록.</p>
-                </a>
-                <a href="https://dermamatch.pages.dev/" target="_blank" class="card card-small">
-                    <span class="tag">PROJECT</span>
-                    <h3>DermaMatch</h3>
-                    <p>피부 병변 분석을 위한 3D 비전 기반 매칭 시스템.</p>
-                </a>
+        </section>
+
+        <section id="contact">
+            <div class="label">CONTACT</div>
+            <h2>Let's Connect</h2>
+            <p class="subtitle">새로운 프로젝트, 연구 협업, 또는 대화를 환영합니다.</p>
+            <div class="contact-links">
+                <a href="https://moon-key.tistory.com" target="_blank" class="contact-link">BLOG</a>
+                <a href="https://github.com/Moooooonk" target="_blank" class="contact-link">GITHUB</a>
             </div>
         </section>
     </main>
 
+    <footer>
+        <span>&copy; 2025 MOON-KEY</span>
+        <span>Built with geometric precision</span>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
     <script>
-        // --- 1. 3D Scene 설정 ---
+        // 로딩 스크린
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                document.querySelector('#hero').classList.add('visible');
+            }, 800);
+        });
+
+        // Three.js 설정
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        
+
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // --- 2. 포인트 클라우드 생성 (4만 개의 점) ---
-        const count = 40000;
+        // 포인트 클라우드
+        const count = 30000;
         const geometry = new THREE.BufferGeometry();
-        
         const positions = new Float32Array(count * 3);
-        const randoms = new Float32Array(count); // 무질서도를 위한 값
+        const randoms = new Float32Array(count);
 
         for (let i = 0; i < count; i++) {
-            // 그리드 위치 (정돈된 상태)
-            positions[i * 3] = (i % 200) * 0.2 - 20;
-            positions[i * 3 + 1] = Math.floor(i / 200) * 0.2 - 20;
+            positions[i * 3] = (i % 175) * 0.23 - 20;
+            positions[i * 3 + 1] = Math.floor(i / 175) * 0.23 - 20;
             positions[i * 3 + 2] = 0;
             randoms[i] = Math.random();
         }
@@ -419,46 +564,52 @@
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
 
-        // --- 3. 커스텀 셰이더 (지리는 효과의 핵심) ---
         const material = new THREE.ShaderMaterial({
             uniforms: {
                 uTime: { value: 0 },
                 uProgress: { value: 0 },
+                uMouse: { value: new THREE.Vector2(0, 0) },
                 uColor: { value: new THREE.Vector3(0.0, 0.95, 1.0) }
             },
             vertexShader: `
                 uniform float uTime;
                 uniform float uProgress;
+                uniform vec2 uMouse;
                 attribute float aRandom;
-                varying vec3 vPosition;
+                varying float vAlpha;
 
                 void main() {
-                    vPosition = position;
-
-                    // Chaos (무질서한 위치)
                     vec3 scatter = position + vec3(
-                        sin(aRandom * 50.0) * 10.0,
-                        cos(aRandom * 30.0) * 10.0,
-                        sin(aRandom * 20.0) * 5.0
+                        sin(aRandom * 50.0) * 12.0,
+                        cos(aRandom * 30.0) * 12.0,
+                        sin(aRandom * 20.0) * 6.0
                     );
 
-                    // Progress에 따라 Chaos에서 Order(position)로 변화
                     vec3 finalPos = mix(scatter, position, uProgress);
 
-                    // 미세한 파동 효과
-                    finalPos.z += sin(finalPos.x * 0.2 + uTime) * 0.5 * (1.0 - uProgress);
+                    // 마우스 인터랙션
+                    float dist = distance(finalPos.xy, uMouse * 20.0);
+                    float influence = smoothstep(8.0, 0.0, dist);
+                    finalPos.z += influence * 2.0;
+
+                    finalPos.z += sin(finalPos.x * 0.15 + uTime) * 0.4 * (1.0 - uProgress * 0.5);
 
                     vec4 mvPosition = modelViewMatrix * vec4(finalPos, 1.0);
-                    gl_PointSize = (4.0 * aRandom + 1.0) * (1.0 / -mvPosition.z);
+                    gl_PointSize = (3.5 * aRandom + 0.8) * (1.0 / -mvPosition.z);
                     gl_Position = projectionMatrix * mvPosition;
+
+                    vAlpha = 0.6 + influence * 0.4;
                 }
             `,
             fragmentShader: `
                 uniform vec3 uColor;
+                varying float vAlpha;
+
                 void main() {
                     float dist = length(gl_PointCoord - vec2(0.5));
                     if (dist > 0.5) discard;
-                    gl_FragColor = vec4(uColor, 0.8);
+                    float alpha = smoothstep(0.5, 0.1, dist) * vAlpha;
+                    gl_FragColor = vec4(uColor, alpha);
                 }
             `,
             transparent: true,
@@ -470,55 +621,76 @@
         scene.add(points);
         camera.position.z = 15;
 
-        // --- 4. 애니메이션 & 인터랙션 ---
+        // 마우스 트래킹
+        let mouse = { x: 0, y: 0 };
+        let targetMouse = { x: 0, y: 0 };
+
+        document.addEventListener('mousemove', (e) => {
+            targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // 스크롤 & 섹션 관리
         let scrollY = 0;
+        const sections = document.querySelectorAll('section');
+        const navDots = document.querySelectorAll('.nav-dot');
+
         window.addEventListener('scroll', () => {
             scrollY = window.scrollY;
-            
-            // 섹션 가시성 체크
-            document.querySelectorAll('section').forEach(sec => {
+
+            sections.forEach((sec, i) => {
                 const rect = sec.getBoundingClientRect();
-                if(rect.top < window.innerHeight * 0.8) sec.classList.add('visible');
+                if (rect.top < window.innerHeight * 0.6 && rect.bottom > 0) {
+                    sec.classList.add('visible');
+                    navDots.forEach(dot => dot.classList.remove('active'));
+                    navDots[i]?.classList.add('active');
+                }
             });
         });
 
+        // 네비게이션 클릭
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const target = document.getElementById(dot.dataset.section);
+                target?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 애니메이션 루프
         function animate() {
             requestAnimationFrame(animate);
             const time = performance.now() * 0.001;
+
+            // 마우스 스무딩
+            mouse.x += (targetMouse.x - mouse.x) * 0.05;
+            mouse.y += (targetMouse.y - mouse.y) * 0.05;
+            material.uniforms.uMouse.value.set(mouse.x, mouse.y);
+
             material.uniforms.uTime.value = time;
 
-            // 스크롤 진행률 (0 ~ 1)
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             const progress = Math.min(scrollY / maxScroll, 1);
-            
-            // 스무스한 보간
-            material.uniforms.uProgress.value += (progress - material.uniforms.uProgress.value) * 0.05;
+            material.uniforms.uProgress.value += (progress - material.uniforms.uProgress.value) * 0.03;
 
-            // 카메라 미세 회전
-            points.rotation.y = time * 0.05;
-            points.rotation.x = Math.sin(time * 0.3) * 0.1;
+            points.rotation.y = time * 0.03 + mouse.x * 0.1;
+            points.rotation.x = Math.sin(time * 0.2) * 0.08 + mouse.y * 0.05;
 
             renderer.render(scene, camera);
         }
-
         animate();
 
-        // 리사이즈 처리
+        // 리사이즈
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // 초기 실행 (첫 섹션 보이게)
-        document.querySelector('section').classList.add('visible');
-
-        // --- 5. 테마 토글 기능 ---
+        // 테마 토글
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const html = document.documentElement;
 
-        // 저장된 테마 불러오기
         const savedTheme = localStorage.getItem('theme') || 'dark';
         if (savedTheme === 'light') {
             html.setAttribute('data-theme', 'light');
@@ -527,16 +699,14 @@
         }
 
         themeToggle.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
+            const isLight = html.getAttribute('data-theme') === 'light';
 
-            if (currentTheme === 'light') {
-                // 다크 모드로 전환
+            if (isLight) {
                 html.removeAttribute('data-theme');
                 themeIcon.textContent = '☀️';
                 material.uniforms.uColor.value = new THREE.Vector3(0.0, 0.95, 1.0);
                 localStorage.setItem('theme', 'dark');
             } else {
-                // 라이트 모드로 전환
                 html.setAttribute('data-theme', 'light');
                 themeIcon.textContent = '🌙';
                 material.uniforms.uColor.value = new THREE.Vector3(0.0, 0.4, 0.8);
