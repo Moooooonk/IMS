@@ -714,7 +714,8 @@
         const savedTheme = localStorage.getItem('theme') || 'dark';
         if (savedTheme === 'light') {
             html.setAttribute('data-theme', 'light');
-            material.uniforms.uColor.value = new THREE.Vector3(0.0, 0.4, 0.8);
+            material.uniforms.uColor.value = new THREE.Vector3(0.15, 0.35, 0.65);
+            material.blending = THREE.NormalBlending;
         }
 
         themeToggle.addEventListener('click', () => {
@@ -723,10 +724,12 @@
             if (isLight) {
                 html.removeAttribute('data-theme');
                 material.uniforms.uColor.value = new THREE.Vector3(0.0, 0.95, 1.0);
+                material.blending = THREE.AdditiveBlending;
                 localStorage.setItem('theme', 'dark');
             } else {
                 html.setAttribute('data-theme', 'light');
-                material.uniforms.uColor.value = new THREE.Vector3(0.0, 0.4, 0.8);
+                material.uniforms.uColor.value = new THREE.Vector3(0.15, 0.35, 0.65);
+                material.blending = THREE.NormalBlending;
                 localStorage.setItem('theme', 'light');
             }
         });
