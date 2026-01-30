@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOON-KEY | Mathematical Reconstruction</title>
-    
+    <title>MOON-KEY | 3D Computer Vision Researcher</title>
+
     <style>
         /* 다크 모드 (기본) */
         :root {
             --bg: #050508;
             --accent: #00f2ff;
+            --accent-secondary: #ff6b9d;
             --text: #ffffff;
             --text-secondary: rgba(255,255,255,0.7);
             --card-bg: rgba(255, 255, 255, 0.03);
@@ -23,6 +24,7 @@
         [data-theme="light"] {
             --bg: #f5f5f7;
             --accent: #0066cc;
+            --accent-secondary: #cc3366;
             --text: #1d1d1f;
             --text-secondary: rgba(29,29,31,0.7);
             --card-bg: rgba(0, 0, 0, 0.03);
@@ -116,6 +118,13 @@
             margin-top: 3rem;
         }
 
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -133,6 +142,78 @@
         }
 
         .card h3 { color: var(--accent); margin-bottom: 1rem; }
+
+        .card-small {
+            padding: 1.5rem;
+        }
+
+        .card-small h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-small p {
+            font-size: 0.9rem;
+        }
+
+        .card .tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background: var(--accent);
+            color: var(--bg);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .card .tag.archive {
+            background: var(--accent-secondary);
+        }
+
+        /* 전문성 섹션 */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .expertise-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .expertise-item:hover {
+            border-color: var(--accent);
+        }
+
+        .expertise-item h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .expertise-item p {
+            font-size: 0.95rem;
+            max-width: none;
+        }
+
+        .expertise-item code {
+            background: rgba(0, 242, 255, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+
+        [data-theme="light"] .expertise-item code {
+            background: rgba(0, 102, 204, 0.1);
+        }
 
         /* 스크롤 가이드 */
         .scroll-hint {
@@ -172,7 +253,7 @@
                 letter-spacing: 2px;
             }
 
-            .grid {
+            .grid, .grid-3, .expertise-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
@@ -200,6 +281,14 @@
                 top: 15px;
                 right: 15px;
                 font-size: 1.2rem;
+            }
+
+            .expertise-item {
+                padding: 1.5rem;
+            }
+
+            .expertise-item h4 {
+                font-size: 1rem;
             }
         }
 
@@ -231,32 +320,63 @@
 
     <main>
         <section id="hero">
-            <div class="label">DATA RECONSTRUCTION</div>
+            <div class="label">3D COMPUTER VISION RESEARCHER</div>
             <h1>MOON-KEY</h1>
-            <p>Reality is merely data waiting to be reconstructed through mathematical rigor.</p>
-            <div class="scroll-hint">SCROLL TO ORGANIZE DATA</div>
+            <p>From mathematical formulations to neural implicit surfaces. Reconstructing reality through geometric intelligence.</p>
+            <div class="scroll-hint">SCROLL TO EXPLORE</div>
+        </section>
+
+        <section id="expertise">
+            <div class="label">01 / EXPERTISE</div>
+            <h2>Core Competencies</h2>
+            <div class="expertise-grid">
+                <div class="expertise-item">
+                    <h4>3D Morphable Models & Deep Geometry</h4>
+                    <p>3DMM의 본질적 구조 <code>S = S&#772; + &alpha;S<sub>i</sub></code> 에 대한 깊은 이해. Shape/Texture Basis의 작동 원리를 바탕으로 FaceScape 데이터셋의 해상도 불일치 문제를 진단하고 Rendering Loss 기반 전략을 수립.</p>
+                </div>
+                <div class="expertise-item">
+                    <h4>Neural Implicit Surface Reconstruction</h4>
+                    <p>고전적 기하학 알고리즘(Poisson, Hole Filling)의 한계를 간파하고 <code>DeepSDF</code>, Neural Implicit 기술을 도입. Stanford Bunny의 복잡한 위상 결함을 완벽한 Watertight Mesh로 복원, 정밀 부피(mm&sup3;) 오차 없이 산출.</p>
+                </div>
+                <div class="expertise-item">
+                    <h4>Research Methodology Transfer</h4>
+                    <p>얼굴 복원 기술(HRN)에서 신체 체적 측정(Volumetric Estimation)으로의 방법론 확장. 기술을 응용하여 새로운 연구 가치를 창출하는 수석 연구원급의 통찰력.</p>
+                </div>
+                <div class="expertise-item">
+                    <h4>Commercial SW Architecture Analysis</h4>
+                    <p>Techmed 3D(MSoft, 3DsizeMe) 솔루션의 <code>[Client - Server - Hardware]</code> 데이터 흐름을 정확히 분석. Structure SDK 로우 레벨 제어와 자동화 프로세스의 차이를 이해하고 독자적 무선 스캐닝 아키텍처 설계.</p>
+                </div>
+            </div>
         </section>
 
         <section id="research">
-            <div class="label">01 / RESEARCH</div>
-            <h2>3D Computer Vision</h2>
+            <div class="label">02 / RESEARCH</div>
+            <h2>Technical Excellence</h2>
             <p>
-                From <b>ICP</b> to <b>Deep Closest Point</b>. <br>
-                비정형 데이터 속에서 기하학적 규칙성을 찾아내고, 3D 안면 복원 및 정합의 수리적 모델을 설계합니다.
+                정밀 데이터 분석과 트러블 슈팅에 강점. 스케일 오류와 기하학적 왜곡을 시각화로 즉시 발견하고, 단위 변환 및 좌표계 오차를 집요하게 추적하여 학계 기준값(GT)과 일치하는 정확한 결과를 도출. 복셀 해상도와 메모리 비용의 최적 균형점을 찾는 PM급 리소스 배분 감각.
             </p>
         </section>
 
         <section id="blog">
-            <div class="label">02 / INSIGHTS</div>
-            <h2>Latest from Blog</h2>
+            <div class="label">03 / INSIGHTS</div>
+            <h2>Publications & Archives</h2>
             <div class="grid">
                 <a href="https://moon-key.tistory.com/entry/Classical-vs-Deep-Learning-ICP%EC%99%80-DCP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D%EB%A7%A4%EC%9A%B0-%EC%89%AC%EC%9A%B4-%EC%84%A4%EB%AA%85" target="_blank" class="card">
+                    <span class="tag">TECHNICAL</span>
                     <h3>Classical vs Deep Learning: ICP와 DCP 알고리즘 비교 분석</h3>
                     <p>수학적 불안정성을 SVD와 정규화로 극복하는 방법론 분석</p>
                 </a>
-                <a href="https://moon-key.tistory.com/entry/%EC%9D%B8%EB%B9%84-%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8%EC%97%90%EB%8A%94-%EC%9D%B4%EC%A0%9C-%EC%82%AC%EB%9E%8C%EC%9D%B4-%EC%82%B4%EC%A7%80-%EC%95%8A%EB%8A%94%EB%8B%A4" target="_blank" class="card">
-                    <h3>인스타그램에는 사람이 살지 않는다</h3>
-                    <p>시각적 '평균의 저주'와 철학적 빈곤에 대한 고찰</p>
+                <a href="https://moon-key.tistory.com/entry/%EB%82%B4%EC%9D%BC%EC%9D%80-%EB%8B%B9%EC%97%B0%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%98%A4%EB%8A%98%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%B3%80%EB%AA%85-%EC%97%86%EB%8A%94-%EC%82%B6%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC" target="_blank" class="card">
+                    <span class="tag">ESSAY</span>
+                    <h3>내일은 당연하지 않습니다</h3>
+                    <p>오늘을 위한 변명 없는 삶에 대하여</p>
+                </a>
+            </div>
+            <div class="grid" style="margin-top: 1.5rem;">
+                <a href="https://velleity-archive.pages.dev/" target="_blank" class="card card-small">
+                    <span class="tag archive">ARCHIVE</span>
+                    <h3>Velleity Archive</h3>
+                    <p>사유의 조각들을 모아둔 디지털 아카이브. 불완전한 의지들의 기록.</p>
                 </a>
             </div>
         </section>
