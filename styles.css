@@ -1,0 +1,429 @@
+:root {
+    --bg: #050508;
+    --accent: #00f2ff;
+    --accent-secondary: #ff6b9d;
+    --accent-tertiary: #a855f7;
+    --text: #ffffff;
+    --text-secondary: rgba(255,255,255,0.6);
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-hover-bg: rgba(0, 242, 255, 0.05);
+    --font-main: 'Inter', -apple-system, sans-serif;
+}
+
+[data-theme="light"] {
+    --bg: #fafafa;
+    --accent: #0066cc;
+    --accent-secondary: #cc3366;
+    --accent-tertiary: #7c3aed;
+    --text: #1a1a1a;
+    --text-secondary: rgba(26,26,26,0.6);
+    --card-bg: rgba(0, 0, 0, 0.02);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --card-hover-bg: rgba(0, 102, 204, 0.05);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    line-height: 1.7;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* 로딩 스크린 */
+.loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-text {
+    font-size: 2rem;
+    font-weight: 100;
+    letter-spacing: 8px;
+    color: var(--accent);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* 사이드 네비게이션 */
+.side-nav {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+.nav-dot::before {
+    content: attr(data-label);
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--text-secondary);
+}
+.nav-dot:hover::before { opacity: 1; }
+.nav-dot:hover { border-color: var(--accent); }
+.nav-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+}
+
+/* 테마 토글 */
+.theme-toggle {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1000;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+.theme-toggle:hover {
+    border-color: var(--accent);
+    transform: scale(1.1);
+}
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text);
+    stroke-width: 1.5;
+    fill: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.theme-toggle:hover svg {
+    stroke: var(--accent);
+}
+.theme-toggle .sun { display: block; }
+.theme-toggle .moon { display: none; }
+[data-theme="light"] .theme-toggle .sun { display: none; }
+[data-theme="light"] .theme-toggle .moon { display: block; }
+
+/* 캔버스 */
+#canvas-container {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+/* 메인 레이아웃 */
+main { position: relative; z-index: 1; }
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 12vw;
+    position: relative;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+section.visible .label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+h1 {
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 100;
+    letter-spacing: -4px;
+    line-height: 0.95;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+section.visible h1 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+section.visible h2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.subtitle {
+    max-width: 540px;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+section.visible .subtitle {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 스크롤 인디케이터 */
+.scroll-indicator {
+    position: absolute;
+    bottom: 8vh;
+    left: 12vw;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.5s forwards;
+}
+.scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    transform-origin: left;
+    animation: expandLine 1.5s ease infinite;
+}
+@keyframes expandLine {
+    0%, 100% { transform: scaleX(0.5); opacity: 0.3; }
+    50% { transform: scaleX(1); opacity: 1; }
+}
+.scroll-text {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--text-secondary);
+}
+@keyframes fadeInUp {
+    to { opacity: 1; }
+}
+
+/* 그리드 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+/* 카드 */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+}
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.card:hover::before { opacity: 0.03; }
+.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1);
+}
+section.visible .card {
+    opacity: 1;
+    transform: translateY(0);
+}
+section.visible .card:nth-child(1) { transition-delay: 0.1s; }
+section.visible .card:nth-child(2) { transition-delay: 0.2s; }
+section.visible .card:nth-child(3) { transition-delay: 0.3s; }
+section.visible .card:nth-child(4) { transition-delay: 0.4s; }
+
+.card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    position: relative;
+}
+.card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    position: relative;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    background: var(--accent);
+    color: var(--bg);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+.tag.archive { background: var(--accent-secondary); }
+.tag.project { background: var(--accent-tertiary); }
+
+/* Expertise 카드 */
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+.expertise-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 2rem;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    transform: translateY(30px);
+}
+.expertise-card:hover {
+    border-color: var(--accent);
+    background: var(--card-hover-bg);
+}
+section.visible .expertise-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+section.visible .expertise-card:nth-child(1) { transition-delay: 0.1s; }
+section.visible .expertise-card:nth-child(2) { transition-delay: 0.2s; }
+section.visible .expertise-card:nth-child(3) { transition-delay: 0.3s; }
+section.visible .expertise-card:nth-child(4) { transition-delay: 0.4s; }
+
+.expertise-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+}
+.expertise-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Contact 섹션 */
+#contact {
+    min-height: 60vh;
+}
+.contact-links {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+section.visible .contact-links {
+    opacity: 1;
+    transform: translateY(0);
+}
+.contact-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+.contact-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* Footer */
+footer {
+    padding: 3rem 12vw;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    section { padding: 0 6vw; }
+    .side-nav { display: none; }
+    .grid, .expertise-grid { grid-template-columns: 1fr; }
+    .scroll-indicator { left: 6vw; }
+    footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 2rem 6vw;
+    }
+    .contact-links { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+    h1 { letter-spacing: -2px; }
+    .card, .expertise-card { padding: 1.5rem; }
+}
