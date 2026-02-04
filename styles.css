@@ -322,6 +322,12 @@ section.visible .card:nth-child(4) { transition-delay: 0.4s; }
 .tag.project { background: var(--accent-tertiary); }
 
 /* Expertise 카드 */
+.expertise-intro {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-top: 1rem;
+    line-height: 1.6;
+}
 .expertise-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
