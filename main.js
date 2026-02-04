@@ -4,7 +4,33 @@ window.addEventListener('load', () => {
         document.getElementById('loader').classList.add('hidden');
         document.querySelector('#hero').classList.add('visible');
     }, 800);
+
+    // 프로젝트 로드
+    loadProjects();
 });
+
+// 프로젝트 JSON 로드 및 렌더링
+async function loadProjects() {
+    try {
+        const response = await fetch('projects.json');
+        const projects = await response.json();
+        const grid = document.getElementById('projectsGrid');
+
+        grid.innerHTML = projects.map(project => {
+            const tagClass = project.tag === 'PROJECT' ? 'project' :
+                           project.tag === 'ARCHIVE' ? 'archive' : '';
+            return `
+                <a href="${project.url}" target="_blank" class="card">
+                    <span class="tag ${tagClass}">${project.tag}</span>
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                </a>
+            `;
+        }).join('');
+    } catch (error) {
+        console.error('프로젝트 로드 실패:', error);
+    }
+}
 
 // Three.js 설정
 const container = document.getElementById('canvas-container');
