@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOON-KEY | All Projects</title>
+    <meta name="description" content="MOON-KEY의 모든 프로젝트와 작업물을 확인하세요.">
+    <meta property="og:title" content="MOON-KEY | All Projects">
+    <meta property="og:description" content="3D Computer Vision & AI 연구자의 프로젝트 포트폴리오">
+    <meta name="theme-color" content="#050508">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .projects-page {
+            min-height: 100vh;
+            padding: 8rem 12vw 4rem;
+        }
+        .projects-header {
+            margin-bottom: 3rem;
+        }
+        .projects-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            opacity: 1;
+            transform: none;
+        }
+        .projects-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            gap: 0.75rem;
+        }
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-main);
+        }
+        .filter-tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .filter-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .project-card:hover::before {
+            opacity: 0.03;
+        }
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1);
+        }
+        .project-card .tag {
+            position: relative;
+            width: fit-content;
+        }
+        .project-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        .project-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            position: relative;
+            flex-grow: 1;
+        }
+        .project-card .arrow {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            color: var(--accent);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+        .project-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stats-summary {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding: 1.5rem 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+        .stats-summary .stat {
+            display: flex;
+            flex-direction: column;
+        }
+        .stats-summary .stat-num {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .stats-summary .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .projects-page {
+                padding: 6rem 6vw 2rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-summary {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 테마 토글 -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </button>
+
+    <main class="projects-page">
+        <a href="index.html" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            BACK TO HOME
+        </a>
+
+        <div class="projects-header">
+            <h1>All Projects</h1>
+            <p>아이디어를 현실로 만드는 과정에서 탄생한 프로젝트들입니다. 3D 비전, AI, 웹 서비스 등 다양한 분야를 탐구합니다.</p>
+        </div>
+
+        <div class="stats-summary">
+            <div class="stat">
+                <span class="stat-num" id="totalProjects">0</span>
+                <span class="stat-label">TOTAL PROJECTS</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num" id="liveProjects">0</span>
+                <span class="stat-label">LIVE SERVICES</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num" id="technicalPosts">0</span>
+                <span class="stat-label">TECHNICAL POSTS</span>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">ALL</button>
+            <button class="filter-tab" data-filter="PROJECT">PROJECTS</button>
+            <button class="filter-tab" data-filter="TECHNICAL">TECHNICAL</button>
+            <button class="filter-tab" data-filter="ARCHIVE">ARCHIVE</button>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            <!-- 프로젝트가 여기에 로드됩니다 -->
+        </div>
+    </main>
+
+    <footer>
+        <span>&copy; 2026 MOON-KEY</span>
+        <span>Built with mathematical rigor</span>
+    </footer>
+
+    <script>
+        // 테마 토글
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            html.setAttribute('data-theme', 'light');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isLight = html.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // 프로젝트 로드
+        let allProjects = [];
+
+        async function loadProjects() {
+            try {
+                const response = await fetch('projects.json');
+                allProjects = await response.json();
+                renderProjects(allProjects);
+                updateStats(allProjects);
+            } catch (error) {
+                console.error('프로젝트 로드 실패:', error);
+            }
+        }
+
+        function renderProjects(projects) {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = projects.map(project => {
+                const tagClass = project.tag === 'PROJECT' ? 'project' :
+                               project.tag === 'ARCHIVE' ? 'archive' :
+                               project.tag === 'RESEARCH' ? 'research' : '';
+                return `
+                    <a href="${project.url}" target="_blank" class="project-card" data-tag="${project.tag}">
+                        <span class="tag ${tagClass}">${project.tag}</span>
+                        <h3>${project.title}</h3>
+                        <p>${project.description}</p>
+                        <span class="arrow">→</span>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        function updateStats(projects) {
+            const total = projects.length;
+            const live = projects.filter(p => p.tag === 'PROJECT').length;
+            const technical = projects.filter(p => p.tag === 'TECHNICAL').length;
+
+            animateNumber('totalProjects', total);
+            animateNumber('liveProjects', live);
+            animateNumber('technicalPosts', technical);
+        }
+
+        function animateNumber(elementId, target) {
+            const element = document.getElementById(elementId);
+            let current = 0;
+            const increment = target / 30;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 30);
+        }
+
+        // 필터링
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+                if (filter === 'all') {
+                    renderProjects(allProjects);
+                } else {
+                    renderProjects(allProjects.filter(p => p.tag === filter));
+                }
+            });
+        });
+
+        loadProjects();
+    </script>
+</body>
+</html>

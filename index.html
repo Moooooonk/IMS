@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOON-KEY | 3D Computer Vision & AI Researcher</title>
-    <meta name="description" content="3D Computer Vision & AI Researcher specializing in geometric deep learning, neural implicit surfaces, and intelligent 3D reconstruction systems.">
-    <meta name="keywords" content="3D Computer Vision, AI, Deep Learning, Neural Networks, Geometric Reconstruction, Machine Learning, Research">
+    <meta name="description" content="AI Researcher specializing in 3D computer vision, geometric deep learning, point cloud processing, and multi-view geometry.">
+    <meta name="keywords" content="3D Computer Vision, AI, Deep Learning, Point Cloud, Multi-view Geometry, Neural Networks, Camera Calibration, Depth Estimation">
     <meta property="og:title" content="MOON-KEY | 3D Computer Vision & AI Researcher">
-    <meta property="og:description" content="Bridging geometry and intelligence. From neural implicit surfaces to deep learning pipelines.">
+    <meta property="og:description" content="Bridging geometry and intelligence. From point clouds to neural 3D reconstruction.">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#050508">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -39,13 +39,28 @@
         </svg>
     </button>
 
-    <div id="canvas-container"></div>
+    <canvas id="dct-canvas"></canvas>
 
     <main>
         <section id="hero">
-            <div class="label">3D COMPUTER VISION & AI</div>
+            <div class="label">3D COMPUTER VISION & AI RESEARCHER</div>
             <h1>MOON-KEY</h1>
-            <p class="subtitle">Bridging geometry and intelligence. From neural implicit surfaces to deep learning pipelines, transforming how machines perceive three-dimensional reality.</p>
+            <p class="subtitle">기하학과 인공지능을 연결합니다. 아이디어를 현실로 만드는 것을 좋아합니다.</p>
+
+            <div class="stats-container">
+                <a href="projects.html" class="stat-item">
+                    <span class="stat-number" id="projectCount">0</span>
+                    <span class="stat-label">PROJECTS</span>
+                </a>
+                <div class="stat-item">
+                    <span class="stat-number" id="postCount">88</span>
+                    <span class="stat-label">BLOG POSTS</span>
+                </div>
+                <a href="projects.html" class="stat-item clickable">
+                    <span class="stat-cta">VIEW ALL WORKS →</span>
+                </a>
+            </div>
+
             <div class="scroll-indicator">
                 <div class="scroll-line"></div>
                 <span class="scroll-text">SCROLL</span>
@@ -55,23 +70,23 @@
         <section id="expertise">
             <div class="label">EXPERTISE</div>
             <h2>What I Do</h2>
-            <p class="expertise-intro">수학 전공의 강점을 살려 3D 데이터를 수리적·기하학적으로 해석하고, 딥러닝 기술로 구현합니다.</p>
+            <p class="expertise-intro">수학적 엄밀함을 바탕으로 3D 데이터를 기하학적으로 해석하고, 딥러닝 기술로 구현합니다.</p>
             <div class="expertise-grid">
                 <div class="expertise-card">
-                    <h4>Deep 3D AI Pipeline</h4>
-                    <p>고전적 기하학 알고리즘의 한계를 파악하고 DeepSDF, Neural Implicit Surface 등 최신 딥러닝 기술을 도입하여 완벽한 폐곡면(Watertight Mesh) 복원 및 정밀 부피 산출.</p>
+                    <h4>3D Geometry & Reconstruction</h4>
+                    <p>Camera Calibration, Homography, Fundamental/Essential Matrix 등 다시점 기하학 이론. 포인트 클라우드 처리, 3D 복원, 깊이 추정까지 기하학 기반 비전 파이프라인 설계.</p>
                 </div>
                 <div class="expertise-card">
-                    <h4>Precision Data Analysis</h4>
-                    <p>데이터의 스케일 오류나 기하학적 왜곡을 시각화로 즉시 발견. 단위 변환, 좌표계 오차를 집요하게 추적하여 학계 기준값과 일치하는 정확한 결과 도출.</p>
+                    <h4>Deep Learning for Vision</h4>
+                    <p>CNN, Transformer 등 비전 아키텍처 이해와 구현. 이미지 분류, 객체 탐지부터 Neural Implicit Representation까지 딥러닝 기반 비전 시스템 개발.</p>
                 </div>
                 <div class="expertise-card">
-                    <h4>System Architecture Design</h4>
-                    <p>상용 솔루션의 Client-Server-Hardware 간 데이터 흐름을 정확히 분석. 비판적 사고로 문서를 검증하고 독자적인 아키텍처 설계.</p>
+                    <h4>Mathematical Foundation</h4>
+                    <p>선형대수, 사영기하학, 최적화 이론 등 수학적 기반. 알고리즘의 수학적 원리를 이해하고 새로운 문제에 적용하는 연구 역량.</p>
                 </div>
                 <div class="expertise-card">
-                    <h4>Resource Optimization</h4>
-                    <p>복셀 해상도와 메모리 비용의 최적 타협점 도출. 프로젝트 목적에 따라 리소스를 효율적으로 배분하는 PM급 판단력.</p>
+                    <h4>Research & Implementation</h4>
+                    <p>최신 논문 분석부터 PyTorch 구현까지 연구의 전 과정 수행. 체계적인 실험 설계와 명료한 글쓰기로 연구 내용을 전달.</p>
                 </div>
             </div>
         </section>
@@ -82,12 +97,13 @@
             <div class="grid" id="projectsGrid">
                 <!-- 프로젝트는 projects.json에서 동적으로 로드됩니다 -->
             </div>
+            <a href="projects.html" class="view-all-link">VIEW ALL PROJECTS →</a>
         </section>
 
         <section id="contact">
             <div class="label">CONTACT</div>
             <h2>Let's Connect</h2>
-            <p class="subtitle">새로운 프로젝트, 연구 협업, 또는 대화를 환영합니다.</p>
+            <p class="subtitle">연구 협업, 기술 자문, 또는 학술적 논의를 환영합니다.</p>
             <div class="contact-links">
                 <a href="mailto:j3323968@gmail.com" class="contact-link">EMAIL</a>
                 <a href="https://moon-key.tistory.com" target="_blank" class="contact-link">BLOG</a>
@@ -96,11 +112,10 @@
     </main>
 
     <footer>
-        <span>&copy; 2025 MOON-KEY</span>
-        <span>Built with geometric precision</span>
+        <span>&copy; 2026 MOON-KEY</span>
+        <span>Built with mathematical rigor</span>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

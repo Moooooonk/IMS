@@ -6,21 +6,39 @@
     "tag": "PROJECT"
   },
   {
+    "title": "3D Computer Vision Series",
+    "description": "Camera Calibration, Homography, Fundamental Matrix 등 다시점 기하학 학습 기록",
+    "url": "https://moon-key.tistory.com/category/3D%20Computer%20Vision",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "ICP vs DCP Algorithm Analysis",
+    "description": "Classical과 Deep Learning 기반 포인트 클라우드 정합 알고리즘 비교",
+    "url": "https://moon-key.tistory.com/entry/Classical-vs-Deep-Learning-ICP%EC%99%80-DCP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D%EB%A7%A4%EC%9A%B0-%EC%89%AC%EC%9A%B4-%EC%84%A4%EB%AA%85",
+    "tag": "TECHNICAL"
+  },
+  {
     "title": "Project Oracle",
     "description": "AI 기반 예측 및 분석 시스템",
     "url": "https://project-oracle.pages.dev/",
     "tag": "PROJECT"
   },
   {
-    "title": "Salieri's Library",
-    "description": "전문성 개발 진단 및 맞춤 조언 서비스",
-    "url": "https://salieri-s-library.pages.dev/",
-    "tag": "PROJECT"
+    "title": "Deep Learning Fundamentals",
+    "description": "퍼셉트론부터 RNN/LSTM/GRU까지 신경망 딥러닝 시리즈",
+    "url": "https://moon-key.tistory.com/6",
+    "tag": "TECHNICAL"
   },
   {
-    "title": "계륵 (Gyereuk)",
-    "description": "버리긴 아깝고, 갖기엔 부족한 것들의 마켓플레이스",
-    "url": "https://gyereuk.pages.dev/",
+    "title": "Machine Learning Practice",
+    "description": "핸즈온 머신러닝 기반 실습 - 회귀, SVM, 앙상블, 차원축소",
+    "url": "https://moon-key.tistory.com/81",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "MIIMIC",
+    "description": "수학 기반 이미지 색감 전이 도구",
+    "url": "https://miimic.pages.dev/",
     "tag": "PROJECT"
   },
   {
@@ -30,9 +48,9 @@
     "tag": "PROJECT"
   },
   {
-    "title": "MIIMIC",
-    "description": "수학 기반 이미지 색감 전이 도구",
-    "url": "https://miimic.pages.dev/",
+    "title": "Salieri's Library",
+    "description": "전문성 개발 진단 및 맞춤 조언 서비스",
+    "url": "https://salieri-s-library.pages.dev/",
     "tag": "PROJECT"
   },
   {
@@ -40,17 +58,5 @@
     "description": "사유의 조각들을 모아둔 디지털 아카이브",
     "url": "https://velleity-archive.pages.dev/",
     "tag": "ARCHIVE"
-  },
-  {
-    "title": "ICP vs DCP Algorithm Analysis",
-    "description": "Classical과 Deep Learning 기반 정합 알고리즘 비교",
-    "url": "https://moon-key.tistory.com/entry/Classical-vs-Deep-Learning-ICP%EC%99%80-DCP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D%EB%A7%A4%EC%9A%B0-%EC%89%AC%EC%9A%B4-%EC%84%A4%EB%AA%85",
-    "tag": "TECHNICAL"
-  },
-  {
-    "title": "내일은 당연하지 않습니다",
-    "description": "오늘을 위한 변명 없는 삶에 대하여",
-    "url": "https://moon-key.tistory.com/entry/%EB%82%B4%EC%9D%BC%EC%9D%80-%EB%8B%B9%EC%97%B0%ED%95%98%EC%A7%80-%EC%95%8A%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%98%A4%EB%8A%98%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%B3%80%EB%AA%85-%EC%97%86%EB%8A%94-%EC%82%B6%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC",
-    "tag": "ESSAY"
   }
 ]

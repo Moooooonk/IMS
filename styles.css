@@ -141,11 +141,13 @@ body {
 [data-theme="light"] .theme-toggle .sun { display: none; }
 [data-theme="light"] .theme-toggle .moon { display: block; }
 
-/* 캔버스 */
-#canvas-container {
+/* DCT 캔버스 */
+#dct-canvas {
     position: fixed;
     inset: 0;
     z-index: -1;
+    width: 100%;
+    height: 100%;
 }
 
 /* 메인 레이아웃 */
@@ -215,6 +217,78 @@ section.visible h2 {
 section.visible .subtitle {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* 통계 컨테이너 */
+.stats-container {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+}
+section.visible .stats-container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    color: inherit;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    background: var(--card-bg);
+    transition: all 0.3s ease;
+}
+.stat-item:hover {
+    border-color: var(--accent);
+    background: var(--card-hover-bg);
+    transform: translateY(-4px);
+}
+.stat-item.clickable {
+    justify-content: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+}
+.stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+.stat-cta {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .stat-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+    .stat-number {
+        font-size: 2rem;
+    }
+    .stat-label {
+        margin-top: 0;
+    }
 }
 
 /* 스크롤 인디케이터 */
@@ -320,6 +394,31 @@ section.visible .card:nth-child(4) { transition-delay: 0.4s; }
 }
 .tag.archive { background: var(--accent-secondary); }
 .tag.project { background: var(--accent-tertiary); }
+.tag.research { background: #10b981; }
+
+.view-all-link {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+section.visible .view-all-link {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+.view-all-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
 
 /* Expertise 카드 */
 .expertise-intro {
