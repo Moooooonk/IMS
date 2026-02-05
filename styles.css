@@ -395,7 +395,6 @@ section.visible .card:nth-child(4) { transition-delay: 0.4s; }
 .tag.archive { background: var(--accent-secondary); }
 .tag.project { background: var(--accent-tertiary); }
 .tag.research { background: #10b981; }
-.tag.technical { background: #8b5cf6; }
 
 .view-all-link {
     display: inline-block;
