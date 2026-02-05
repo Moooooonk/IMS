@@ -26,7 +26,8 @@ async function loadProjects() {
             grid.innerHTML = displayProjects.map(project => {
                 const tagClass = project.tag === 'PROJECT' ? 'project' :
                                project.tag === 'ARCHIVE' ? 'archive' :
-                               project.tag === 'RESEARCH' ? 'research' : '';
+                               project.tag === 'RESEARCH' ? 'research' :
+                               project.tag === 'TECHNICAL' ? 'technical' : '';
                 return `
                     <a href="${project.url}" target="_blank" class="card">
                         <span class="tag ${tagClass}">${project.tag}</span>
@@ -428,7 +429,6 @@ function render() {
         // 스테이지 텍스트
         ctx.font = '11px "Inter", sans-serif';
         ctx.textAlign = 'center';
-        ctx.letterSpacing = '3px';
         ctx.fillStyle = isLight
             ? `rgba(0, 0, 0, ${uiAlpha * 0.7})`
             : `rgba(255, 255, 255, ${uiAlpha * 0.7})`;

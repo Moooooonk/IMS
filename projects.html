@@ -288,7 +288,8 @@
             grid.innerHTML = projects.map(project => {
                 const tagClass = project.tag === 'PROJECT' ? 'project' :
                                project.tag === 'ARCHIVE' ? 'archive' :
-                               project.tag === 'RESEARCH' ? 'research' : '';
+                               project.tag === 'RESEARCH' ? 'research' :
+                               project.tag === 'TECHNICAL' ? 'technical' : '';
                 return `
                     <a href="${project.url}" target="_blank" class="project-card" data-tag="${project.tag}">
                         <span class="tag ${tagClass}">${project.tag}</span>
