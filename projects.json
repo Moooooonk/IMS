@@ -1,5 +1,12 @@
 [
   {
+    "title": "XRPedia",
+    "description": "XRPL Korea 해커톤 최우수상 - SBERT/Faiss 문서 유사도 검사 및 규칙 기반 자동 분류 시스템 개발",
+    "url": "https://moon-key.tistory.com/entry/XRPL-%ED%95%B4%EC%BB%A4%ED%86%A4-%EC%B5%9C%EC%9A%B0%EC%88%98%EC%83%81-%EC%88%98%EC%83%81-%ED%9B%84%EA%B8%B0-AI%EC%99%80-%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8%EC%9D%98-%EB%A7%8C%EB%82%A8-XRPedia",
+    "github": "https://github.com/XRPL-Hackathon/server-ai",
+    "tag": "PROJECT"
+  },
+  {
     "title": "DermaMatch",
     "description": "피부 병변 분석을 위한 3D 비전 기반 매칭 시스템",
     "url": "https://dermamat.pages.dev/",
