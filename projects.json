@@ -73,12 +73,6 @@
     "tag": "TECHNICAL"
   },
   {
-    "title": "RNN, LSTM, GRU 비교 분석",
-    "description": "시계열 데이터 기온 예측을 통한 순환신경망 아키텍처 성능 비교",
-    "url": "https://moon-key.tistory.com/80",
-    "tag": "TECHNICAL"
-  },
-  {
     "title": "데이터 불균형의 함정",
     "description": "99.8% 정확도 모델이 쓸모없는 이유 - 언더샘플링, SMOTE, 가중치 기법 비교",
     "url": "https://moon-key.tistory.com/55",
