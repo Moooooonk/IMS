@@ -34,5 +34,53 @@
     "description": "사유의 조각들을 모아둔 디지털 아카이브",
     "url": "https://velleity-archive.pages.dev/",
     "tag": "ARCHIVE"
+  },
+  {
+    "title": "Fundamental & Essential Matrix",
+    "description": "다시점 기하학의 핵심 - 에피폴라 기하학과 카메라 간 관계 수학적 분석",
+    "url": "https://moon-key.tistory.com/category/3D%20Computer%20Vision",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "ICP vs DCP 알고리즘 비교",
+    "description": "Classical과 Deep Learning 기반 포인트 클라우드 정합 알고리즘 심층 분석",
+    "url": "https://moon-key.tistory.com/entry/Classical-vs-Deep-Learning-ICP%EC%99%80-DCP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D%EB%A7%A4%EC%9A%B0-%EC%89%AC%EC%9A%B4-%EC%84%A4%EB%AA%85",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "미분 가능한 JPEG 압축 레이어",
+    "description": "ICLR 2025 논문 분석 - 딥러닝 파이프라인 내 소프트 양자화 기법",
+    "url": "https://moon-key.tistory.com/30",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "DCT의 수학적 원리",
+    "description": "JPEG 압축의 핵심 - 푸리에 변환 대비 DCT의 우수성과 에너지 응집 원리",
+    "url": "https://moon-key.tistory.com/78",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "딥러닝 옵티마이저 총정리",
+    "description": "SGD부터 Adam까지 - 각 최적화 알고리즘의 수식, 의미, 장단점 체계적 분석",
+    "url": "https://moon-key.tistory.com/44",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "RNN, LSTM, GRU 비교 분석",
+    "description": "시계열 데이터 기온 예측을 통한 순환신경망 아키텍처 성능 비교",
+    "url": "https://moon-key.tistory.com/80",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "데이터 불균형의 함정",
+    "description": "99.8% 정확도 모델이 쓸모없는 이유 - 언더샘플링, SMOTE, 가중치 기법 비교",
+    "url": "https://moon-key.tistory.com/55",
+    "tag": "TECHNICAL"
+  },
+  {
+    "title": "Adaptive Federated Optimization",
+    "description": "연합학습 FEDAVG 알고리즘 분석 - 분산 환경에서의 최적화 이론",
+    "url": "https://moon-key.tistory.com/45",
+    "tag": "TECHNICAL"
   }
 ]
