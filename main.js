@@ -22,7 +22,6 @@ async function loadProjects() {
             animateNumber(projectCountEl, projectOnly);
         }
 
-        // 프로젝트 그리드가 있으면 렌더링 (메인 페이지에서는 최신 6개만)
         if (grid) {
             const displayProjects = projects.slice(0, 6);
             grid.innerHTML = displayProjects.map(project => {
@@ -43,7 +42,6 @@ async function loadProjects() {
     }
 }
 
-// 숫자 애니메이션
 function animateNumber(element, target) {
     let current = 0;
     const increment = target / 25;
@@ -57,17 +55,19 @@ function animateNumber(element, target) {
     }, 40);
 }
 
-// 3D 포인트 클라우드 시각화
+// ============================================
+// 인터랙티브 포인트 클라우드 시각화
+// ============================================
+
 const canvas = document.getElementById('dct-canvas');
 const ctx = canvas.getContext('2d');
 
 let width, height;
-let mouseX = 0.5, mouseY = 0.5;
-let targetMouseX = 0.5, targetMouseY = 0.5;
+let mouseX = 0, mouseY = 0;
+let targetMouseX = 0, targetMouseY = 0;
 let scrollProgress = 0;
 let time = 0;
 
-// 캔버스 크기
 function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
@@ -75,88 +75,145 @@ function resize() {
 resize();
 window.addEventListener('resize', resize);
 
-// 3D 포인트 클라우드 생성 - 다양한 3D 형태
+// 포인트 클래스
+class Point {
+    constructor() {
+        this.reset();
+    }
+
+    reset() {
+        // 구면 분포로 초기 위치 설정
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        const r = 0.8 + Math.random() * 0.4;
+
+        this.baseX = r * Math.sin(phi) * Math.cos(theta);
+        this.baseY = r * Math.sin(phi) * Math.sin(theta);
+        this.baseZ = r * Math.cos(phi);
+
+        this.x = this.baseX;
+        this.y = this.baseY;
+        this.z = this.baseZ;
+
+        this.size = Math.random() * 2 + 0.5;
+        this.speed = 0.0005 + Math.random() * 0.001;
+        this.offset = Math.random() * Math.PI * 2;
+        this.pulseSpeed = 0.5 + Math.random() * 1;
+        this.orbitSpeed = 0.1 + Math.random() * 0.2;
+    }
+
+    update(time, mouseInfluence, rotY, rotX) {
+        // 기본 회전 궤도 운동
+        const orbitAngle = time * this.orbitSpeed + this.offset;
+
+        // 호흡하는 듯한 확장/수축
+        const breathe = 1 + Math.sin(time * this.pulseSpeed + this.offset) * 0.15;
+
+        // 파동 효과
+        const wave = Math.sin(time * 2 + this.baseX * 3 + this.baseY * 3) * 0.1;
+
+        let px = this.baseX * breathe + wave * this.baseX;
+        let py = this.baseY * breathe + wave * this.baseY;
+        let pz = this.baseZ * breathe + wave * this.baseZ;
+
+        // Y축 회전
+        let x1 = px * Math.cos(rotY) - pz * Math.sin(rotY);
+        let z1 = px * Math.sin(rotY) + pz * Math.cos(rotY);
+
+        // X축 회전
+        let y1 = py * Math.cos(rotX) - z1 * Math.sin(rotX);
+        let z2 = py * Math.sin(rotX) + z1 * Math.cos(rotX);
+
+        this.x = x1;
+        this.y = y1;
+        this.z = z2;
+
+        // 마우스 상호작용 - 밀어내기/끌어당기기
+        const screenX = (this.x / (this.z + 3)) * 400 + width / 2;
+        const screenY = (this.y / (this.z + 3)) * 400 + height / 2;
+
+        const dx = screenX - mouseX;
+        const dy = screenY - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 200) {
+            const force = (200 - dist) / 200;
+            const angle = Math.atan2(dy, dx);
+            const push = force * 0.3 * mouseInfluence;
+
+            this.x += Math.cos(angle) * push * 0.1;
+            this.y += Math.sin(angle) * push * 0.1;
+        }
+    }
+
+    draw(ctx, isLight, fadeAlpha) {
+        const perspective = 3;
+        const scale = perspective / (perspective + this.z);
+
+        const screenX = this.x * scale * 400 + width / 2;
+        const screenY = this.y * scale * 400 + height / 2;
+
+        if (screenX < -50 || screenX > width + 50 || screenY < -50 || screenY > height + 50) return;
+
+        const depth = (this.z + 1.5) / 3; // 0 to 1
+        const size = this.size * scale * (1 + depth * 0.5);
+        const alpha = fadeAlpha * (0.3 + depth * 0.7) * scale;
+
+        if (alpha <= 0 || size <= 0) return;
+
+        // 글로우 효과
+        const gradient = ctx.createRadialGradient(screenX, screenY, 0, screenX, screenY, size * 3);
+
+        if (isLight) {
+            gradient.addColorStop(0, `rgba(0, 102, 204, ${alpha})`);
+            gradient.addColorStop(0.3, `rgba(0, 102, 204, ${alpha * 0.5})`);
+            gradient.addColorStop(1, `rgba(0, 102, 204, 0)`);
+        } else {
+            gradient.addColorStop(0, `rgba(100, 220, 255, ${alpha})`);
+            gradient.addColorStop(0.3, `rgba(0, 180, 255, ${alpha * 0.5})`);
+            gradient.addColorStop(1, `rgba(0, 150, 255, 0)`);
+        }
+
+        ctx.beginPath();
+        ctx.arc(screenX, screenY, size * 3, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // 코어
+        ctx.beginPath();
+        ctx.arc(screenX, screenY, size * 0.8, 0, Math.PI * 2);
+        ctx.fillStyle = isLight
+            ? `rgba(0, 80, 180, ${alpha * 1.2})`
+            : `rgba(200, 240, 255, ${alpha * 1.2})`;
+        ctx.fill();
+
+        return { x: screenX, y: screenY, z: this.z, alpha, size };
+    }
+}
+
+// 연결선을 위한 포인트 저장
+let drawnPoints = [];
+
+// 포인트 생성
 const points = [];
-const numPoints = 2000;
+const numPoints = 800;
 
-// Stanford Bunny 스타일의 3D 형태 생성 (구면 + 노이즈)
 for (let i = 0; i < numPoints; i++) {
-    // 구면 좌표계로 분포
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    const r = 1 + (Math.random() - 0.5) * 0.3;
-
-    // 약간의 변형을 추가해 유기적인 형태로
-    const deform = Math.sin(theta * 3) * Math.cos(phi * 2) * 0.2;
-
-    points.push({
-        x: (r + deform) * Math.sin(phi) * Math.cos(theta),
-        y: (r + deform) * Math.sin(phi) * Math.sin(theta),
-        z: (r + deform) * Math.cos(phi),
-        size: Math.random() * 2 + 1,
-        alpha: Math.random() * 0.5 + 0.5
-    });
-}
-
-// 카메라 frustum 포인트 (3D CV 느낌)
-const frustumPoints = [];
-const frustumDepth = 2;
-const frustumWidth = 1.2;
-
-// 카메라 위치에서 뻗어나가는 frustum
-for (let i = 0; i < 200; i++) {
-    const t = Math.random();
-    const angle = Math.random() * Math.PI * 2;
-    const spread = t * frustumWidth;
-
-    frustumPoints.push({
-        x: Math.cos(angle) * spread - 2.5,
-        y: Math.sin(angle) * spread,
-        z: -t * frustumDepth + 1,
-        size: 1.5,
-        alpha: 1 - t * 0.7
-    });
-}
-
-// 좌표축 (X, Y, Z)
-const axisPoints = [];
-const axisLength = 1.8;
-for (let i = 0; i < 50; i++) {
-    const t = i / 50;
-    // X축 (빨강)
-    axisPoints.push({ x: t * axisLength, y: 0, z: 0, color: [255, 100, 100], size: 2 });
-    // Y축 (초록)
-    axisPoints.push({ x: 0, y: t * axisLength, z: 0, color: [100, 255, 100], size: 2 });
-    // Z축 (파랑)
-    axisPoints.push({ x: 0, y: 0, z: t * axisLength, color: [100, 150, 255], size: 2 });
-}
-
-// 3D → 2D 투영
-function project(x, y, z, rotX, rotY) {
-    // Y축 회전
-    let x1 = x * Math.cos(rotY) - z * Math.sin(rotY);
-    let z1 = x * Math.sin(rotY) + z * Math.cos(rotY);
-
-    // X축 회전
-    let y1 = y * Math.cos(rotX) - z1 * Math.sin(rotX);
-    let z2 = y * Math.sin(rotX) + z1 * Math.cos(rotX);
-
-    // 원근 투영
-    const fov = 4;
-    const scale = fov / (fov + z2);
-
-    return {
-        x: x1 * scale,
-        y: y1 * scale,
-        z: z2,
-        scale: scale
-    };
+    points.push(new Point());
 }
 
 // 마우스 트래킹
+let mouseInfluence = 0;
+let targetMouseInfluence = 0;
+
 document.addEventListener('mousemove', (e) => {
-    targetMouseX = e.clientX / width;
-    targetMouseY = e.clientY / height;
+    targetMouseX = e.clientX;
+    targetMouseY = e.clientY;
+    targetMouseInfluence = 1;
+});
+
+document.addEventListener('mouseleave', () => {
+    targetMouseInfluence = 0;
 });
 
 // 스크롤 트래킹
@@ -187,11 +244,12 @@ document.querySelectorAll('.nav-dot').forEach(dot => {
 
 // 렌더링
 function render() {
-    time += 0.008;
+    time += 0.016;
 
     // 마우스 스무딩
-    mouseX += (targetMouseX - mouseX) * 0.05;
-    mouseY += (targetMouseY - mouseY) * 0.05;
+    mouseX += (targetMouseX - mouseX) * 0.08;
+    mouseY += (targetMouseY - mouseY) * 0.08;
+    mouseInfluence += (targetMouseInfluence - mouseInfluence) * 0.05;
 
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
@@ -199,115 +257,82 @@ function render() {
     ctx.fillStyle = isLight ? '#fafafa' : '#050508';
     ctx.fillRect(0, 0, width, height);
 
-    // 회전 각도 (마우스 + 자동 회전)
-    const rotY = time * 0.3 + (mouseX - 0.5) * 1.5;
-    const rotX = (mouseY - 0.5) * 0.8 + 0.3;
+    // 회전 (마우스 + 자동)
+    const autoRotY = time * 0.15;
+    const mouseRotY = ((mouseX / width) - 0.5) * 0.5 * mouseInfluence;
+    const mouseRotX = ((mouseY / height) - 0.5) * 0.3 * mouseInfluence;
 
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const baseScale = Math.min(width, height) * 0.25;
+    const rotY = autoRotY + mouseRotY;
+    const rotX = 0.3 + mouseRotX;
 
     // 스크롤에 따른 페이드
     const fadeAlpha = Math.max(0, 1 - scrollProgress * 2);
 
-    // 모든 포인트를 투영하고 정렬
-    const projectedPoints = [];
+    // 포인트 업데이트 및 수집
+    drawnPoints = [];
 
-    // 메인 포인트 클라우드
-    points.forEach(p => {
-        const proj = project(p.x, p.y, p.z, rotX, rotY);
-        projectedPoints.push({
-            screenX: centerX + proj.x * baseScale,
-            screenY: centerY + proj.y * baseScale,
-            z: proj.z,
-            size: p.size * proj.scale * (1 - scrollProgress * 0.5),
-            alpha: p.alpha * fadeAlpha * (0.3 + proj.scale * 0.5),
-            type: 'main'
-        });
-    });
-
-    // Frustum 포인트
-    frustumPoints.forEach(p => {
-        const proj = project(p.x, p.y, p.z, rotX, rotY);
-        projectedPoints.push({
-            screenX: centerX + proj.x * baseScale,
-            screenY: centerY + proj.y * baseScale,
-            z: proj.z,
-            size: p.size * proj.scale,
-            alpha: p.alpha * fadeAlpha * 0.6,
-            type: 'frustum'
-        });
-    });
-
-    // 좌표축
-    axisPoints.forEach(p => {
-        const proj = project(p.x, p.y, p.z, rotX, rotY);
-        projectedPoints.push({
-            screenX: centerX + proj.x * baseScale,
-            screenY: centerY + proj.y * baseScale,
-            z: proj.z,
-            size: p.size * proj.scale,
-            alpha: fadeAlpha * 0.8,
-            color: p.color,
-            type: 'axis'
-        });
+    points.forEach(point => {
+        point.update(time, mouseInfluence, rotY, rotX);
     });
 
     // Z 정렬 (뒤에서 앞으로)
-    projectedPoints.sort((a, b) => b.z - a.z);
+    const sortedPoints = [...points].sort((a, b) => b.z - a.z);
 
-    // 그리기
-    projectedPoints.forEach(p => {
-        if (p.alpha <= 0 || p.size <= 0) return;
+    // 연결선 그리기 (가까운 점들 연결)
+    ctx.lineWidth = 0.5;
 
-        ctx.beginPath();
-        ctx.arc(p.screenX, p.screenY, p.size, 0, Math.PI * 2);
+    sortedPoints.forEach((point, i) => {
+        const perspective = 3;
+        const scale = perspective / (perspective + point.z);
+        const screenX = point.x * scale * 400 + width / 2;
+        const screenY = point.y * scale * 400 + height / 2;
 
-        if (p.type === 'axis' && p.color) {
-            ctx.fillStyle = `rgba(${p.color[0]}, ${p.color[1]}, ${p.color[2]}, ${p.alpha})`;
-        } else if (p.type === 'frustum') {
-            ctx.fillStyle = isLight
-                ? `rgba(0, 102, 204, ${p.alpha})`
-                : `rgba(0, 242, 255, ${p.alpha})`;
-        } else {
-            ctx.fillStyle = isLight
-                ? `rgba(60, 60, 80, ${p.alpha})`
-                : `rgba(200, 220, 255, ${p.alpha})`;
+        // 가까운 점들과 연결
+        for (let j = i + 1; j < Math.min(i + 20, sortedPoints.length); j++) {
+            const other = sortedPoints[j];
+            const otherScale = perspective / (perspective + other.z);
+            const otherX = other.x * otherScale * 400 + width / 2;
+            const otherY = other.y * otherScale * 400 + height / 2;
+
+            const dx = screenX - otherX;
+            const dy = screenY - otherY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 80) {
+                const lineAlpha = (1 - dist / 80) * fadeAlpha * 0.15;
+                ctx.strokeStyle = isLight
+                    ? `rgba(0, 102, 204, ${lineAlpha})`
+                    : `rgba(100, 200, 255, ${lineAlpha})`;
+                ctx.beginPath();
+                ctx.moveTo(screenX, screenY);
+                ctx.lineTo(otherX, otherY);
+                ctx.stroke();
+            }
         }
-
-        ctx.fill();
     });
 
-    // 카메라 아이콘 (원점 표시)
-    if (fadeAlpha > 0.3) {
-        const camProj = project(-2.5, 0, 1, rotX, rotY);
-        const camX = centerX + camProj.x * baseScale;
-        const camY = centerY + camProj.y * baseScale;
-        const camSize = 12 * camProj.scale;
+    // 포인트 그리기
+    sortedPoints.forEach(point => {
+        point.draw(ctx, isLight, fadeAlpha);
+    });
 
-        ctx.strokeStyle = isLight
-            ? `rgba(0, 102, 204, ${fadeAlpha * 0.8})`
-            : `rgba(0, 242, 255, ${fadeAlpha * 0.8})`;
-        ctx.lineWidth = 2;
+    // 마우스 주변 강조 효과
+    if (mouseInfluence > 0.1 && fadeAlpha > 0.1) {
+        const glowSize = 150 + Math.sin(time * 3) * 20;
+        const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, glowSize);
 
-        // 카메라 박스
-        ctx.strokeRect(camX - camSize, camY - camSize * 0.7, camSize * 2, camSize * 1.4);
+        if (isLight) {
+            gradient.addColorStop(0, `rgba(0, 102, 204, ${0.05 * mouseInfluence * fadeAlpha})`);
+            gradient.addColorStop(1, 'rgba(0, 102, 204, 0)');
+        } else {
+            gradient.addColorStop(0, `rgba(0, 200, 255, ${0.08 * mouseInfluence * fadeAlpha})`);
+            gradient.addColorStop(1, 'rgba(0, 200, 255, 0)');
+        }
 
-        // 렌즈
         ctx.beginPath();
-        ctx.arc(camX + camSize * 1.3, camY, camSize * 0.4, 0, Math.PI * 2);
-        ctx.stroke();
-    }
-
-    // 하단 텍스트
-    if (scrollProgress < 0.15) {
-        const textAlpha = (1 - scrollProgress * 6.5) * 0.6;
-        ctx.fillStyle = isLight
-            ? `rgba(0, 102, 204, ${textAlpha})`
-            : `rgba(0, 242, 255, ${textAlpha})`;
-        ctx.font = '12px "Inter", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('POINT CLOUD VISUALIZATION — 3D COMPUTER VISION', width / 2, height - 40);
+        ctx.arc(mouseX, mouseY, glowSize, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
     }
 
     requestAnimationFrame(render);
