@@ -387,9 +387,13 @@ function render() {
         const depth = (tp.z + 1.5) / 3;
         const size = (1 + depth * 1.5) * tp.scale;
 
-        // 메쉬가 완성되면 포인트 페이드
-        const pointFade = meshProgress < 1 ? 1 : (1 - (meshProgress - 0.8) * 5);
-        const alpha = fadeAlpha * (0.3 + depth * 0.7) * Math.max(0.15, pointFade);
+        // 메쉬가 형성되면서 포인트가 서서히 페이드 (0.3부터 시작)
+        let pointFade = 1;
+        if (meshProgress > 0.3) {
+            const fadeProgress = (meshProgress - 0.3) / 0.7; // 0.3~1.0 구간을 0~1로
+            pointFade = 1 - easeInOutCubic(fadeProgress) * 0.85; // 최소 0.15까지만 페이드
+        }
+        const alpha = fadeAlpha * (0.3 + depth * 0.7) * pointFade;
 
         if (alpha <= 0.01) return;
 
