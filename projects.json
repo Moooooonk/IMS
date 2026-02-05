@@ -6,34 +6,10 @@
     "tag": "PROJECT"
   },
   {
-    "title": "3D Computer Vision Series",
-    "description": "Camera Calibration, Homography, Fundamental Matrix 등 다시점 기하학 학습 기록",
-    "url": "https://moon-key.tistory.com/category/3D%20Computer%20Vision",
-    "tag": "TECHNICAL"
-  },
-  {
-    "title": "ICP vs DCP Algorithm Analysis",
-    "description": "Classical과 Deep Learning 기반 포인트 클라우드 정합 알고리즘 비교",
-    "url": "https://moon-key.tistory.com/entry/Classical-vs-Deep-Learning-ICP%EC%99%80-DCP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D%EB%A7%A4%EC%9A%B0-%EC%89%AC%EC%9A%B4-%EC%84%A4%EB%AA%85",
-    "tag": "TECHNICAL"
-  },
-  {
     "title": "Project Oracle",
     "description": "AI 기반 예측 및 분석 시스템",
     "url": "https://project-oracle.pages.dev/",
     "tag": "PROJECT"
-  },
-  {
-    "title": "Deep Learning Fundamentals",
-    "description": "퍼셉트론부터 RNN/LSTM/GRU까지 신경망 딥러닝 시리즈",
-    "url": "https://moon-key.tistory.com/6",
-    "tag": "TECHNICAL"
-  },
-  {
-    "title": "Machine Learning Practice",
-    "description": "핸즈온 머신러닝 기반 실습 - 회귀, SVM, 앙상블, 차원축소",
-    "url": "https://moon-key.tistory.com/81",
-    "tag": "TECHNICAL"
   },
   {
     "title": "MIIMIC",

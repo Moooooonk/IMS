@@ -15,10 +15,11 @@ async function loadProjects() {
         const projects = await response.json();
         const grid = document.getElementById('projectsGrid');
 
-        // 프로젝트 카운트 애니메이션
+        // 프로젝트 카운트 애니메이션 (PROJECT 태그만)
         const projectCountEl = document.getElementById('projectCount');
         if (projectCountEl) {
-            animateNumber(projectCountEl, projects.length);
+            const projectOnly = projects.filter(p => p.tag === 'PROJECT').length;
+            animateNumber(projectCountEl, projectOnly);
         }
 
         // 프로젝트 그리드가 있으면 렌더링 (메인 페이지에서는 최신 6개만)
