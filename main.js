@@ -55,8 +55,7 @@ function animateNumber(element, target) {
 }
 
 // ============================================
-// 3D CV Pipeline Visualization
-// Registration → Mesh Reconstruction
+// 3D Reconstruction Pipeline Visualization
 // ============================================
 
 const canvas = document.getElementById('dct-canvas');
@@ -75,105 +74,136 @@ function resize() {
 resize();
 window.addEventListener('resize', resize);
 
-// 3D 변환 함수
-function rotateY(x, y, z, angle) {
+// Easing 함수들
+function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function easeOutQuart(t) {
+    return 1 - Math.pow(1 - t, 4);
+}
+
+function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
+
+// 3D 변환
+function rotateY(p, angle) {
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
     return {
-        x: x * cos - z * sin,
-        y: y,
-        z: x * sin + z * cos
+        x: p.x * cos - p.z * sin,
+        y: p.y,
+        z: p.x * sin + p.z * cos
     };
 }
 
-function rotateX(x, y, z, angle) {
+function rotateX(p, angle) {
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
     return {
-        x: x,
-        y: y * cos - z * sin,
-        z: y * sin + z * cos
+        x: p.x,
+        y: p.y * cos - p.z * sin,
+        z: p.y * sin + p.z * cos
     };
 }
 
-function project(x, y, z) {
-    const perspective = 4;
-    const scale = perspective / (perspective + z);
+function project(p) {
+    const perspective = 3.5;
+    const scale = perspective / (perspective + p.z);
     return {
-        x: x * scale * 300 + width / 2,
-        y: y * scale * 300 + height / 2,
+        x: p.x * scale * 280 + width / 2,
+        y: p.y * scale * 280 + height / 2,
         scale: scale,
-        z: z
+        z: p.z
     };
 }
 
-// Stanford Bunny 스타일 3D 형태 생성
-function generateShape(numPoints, seed = 0) {
-    const points = [];
-    for (let i = 0; i < numPoints; i++) {
-        const theta = (i + seed) * 2.399963 + seed; // Golden angle
-        const phi = Math.acos(1 - 2 * (i + 0.5) / numPoints);
-        const r = 0.8 + Math.sin(theta * 3 + phi * 2) * 0.15;
+// 3D 형태 생성 (유기적인 형태)
+class Point3D {
+    constructor(x, y, z, index, total) {
+        this.targetX = x;
+        this.targetY = y;
+        this.targetZ = z;
+        this.index = index;
+        this.total = total;
 
-        points.push({
-            x: r * Math.sin(phi) * Math.cos(theta),
-            y: r * Math.sin(phi) * Math.sin(theta) * 0.9,
-            z: r * Math.cos(phi),
-            origX: r * Math.sin(phi) * Math.cos(theta),
-            origY: r * Math.sin(phi) * Math.sin(theta) * 0.9,
-            origZ: r * Math.cos(phi)
-        });
-    }
-    return points;
-}
+        // 시작 위치 (흩어진 상태)
+        const scatter = 3;
+        const angle = index * 2.399963;
+        const radius = 1.5 + Math.random() * scatter;
+        this.scatterX = Math.cos(angle) * radius * (Math.random() - 0.5) * 2;
+        this.scatterY = (Math.random() - 0.5) * scatter * 2;
+        this.scatterZ = Math.sin(angle) * radius * (Math.random() - 0.5) * 2;
 
-// 두 포인트 클라우드 생성 (Source: 시안, Target: 마젠타)
-const numPoints = 500;
-const sourceCloud = generateShape(numPoints, 0);
-const targetCloud = generateShape(numPoints, 0);
+        this.x = this.scatterX;
+        this.y = this.scatterY;
+        this.z = this.scatterZ;
 
-// Source cloud 초기 변환 (misaligned 상태)
-const initialRotation = { x: 0.5, y: 0.8, z: 0.3 };
-const initialTranslation = { x: 0.6, y: -0.3, z: 0.2 };
-
-sourceCloud.forEach(p => {
-    // 초기 회전
-    let rotated = rotateY(p.origX, p.origY, p.origZ, initialRotation.y);
-    rotated = rotateX(rotated.x, rotated.y, rotated.z, initialRotation.x);
-
-    p.startX = rotated.x + initialTranslation.x;
-    p.startY = rotated.y + initialTranslation.y;
-    p.startZ = rotated.z + initialTranslation.z;
-
-    p.x = p.startX;
-    p.y = p.startY;
-    p.z = p.startZ;
-});
-
-// 메쉬 삼각형 생성 (Delaunay-like)
-function generateMeshTriangles(points) {
-    const triangles = [];
-    const sorted = [...points].sort((a, b) => a.origY - b.origY);
-
-    for (let i = 0; i < sorted.length - 2; i++) {
-        const p1 = sorted[i];
-
-        // 가까운 점들 찾기
-        const nearby = sorted.slice(i + 1, i + 15).sort((a, b) => {
-            const distA = Math.sqrt((a.origX - p1.origX) ** 2 + (a.origZ - p1.origZ) ** 2);
-            const distB = Math.sqrt((b.origX - p1.origX) ** 2 + (b.origZ - p1.origZ) ** 2);
-            return distA - distB;
-        });
-
-        if (nearby.length >= 2) {
-            triangles.push([points.indexOf(p1), points.indexOf(nearby[0]), points.indexOf(nearby[1])]);
-        }
+        // 개별 애니메이션 딜레이
+        this.delay = (index / total) * 0.3;
+        this.speed = 0.8 + Math.random() * 0.4;
     }
 
-    return triangles.slice(0, 300); // 적당한 수의 삼각형만
+    update(gatherProgress, disperseProgress) {
+        // Gather: 흩어진 상태 → 형태
+        // Disperse: 형태 → 흩어진 상태
+
+        const gather = easeOutQuart(Math.max(0, Math.min(1, (gatherProgress - this.delay) * 1.5)));
+        const disperse = easeInOutCubic(disperseProgress);
+
+        // 현재 위치 계산
+        const formX = this.scatterX + (this.targetX - this.scatterX) * gather;
+        const formY = this.scatterY + (this.targetY - this.scatterY) * gather;
+        const formZ = this.scatterZ + (this.targetZ - this.scatterZ) * gather;
+
+        // Disperse할 때 새로운 scatter 위치로
+        this.x = formX + (this.scatterX - formX) * disperse;
+        this.y = formY + (this.scatterY - formY) * disperse;
+        this.z = formZ + (this.scatterZ - formZ) * disperse;
+    }
 }
 
-const meshTriangles = generateMeshTriangles(targetCloud);
+// 포인트 생성 (Stanford Bunny 스타일)
+const numPoints = 600;
+const points = [];
+
+for (let i = 0; i < numPoints; i++) {
+    const theta = i * 2.399963; // Golden angle
+    const phi = Math.acos(1 - 2 * (i + 0.5) / numPoints);
+    const r = 0.85 + Math.sin(theta * 5 + phi * 3) * 0.12;
+
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.cos(phi);
+    const z = r * Math.sin(phi) * Math.sin(theta);
+
+    points.push(new Point3D(x, y, z, i, numPoints));
+}
+
+// 메쉬 삼각형 생성
+const triangles = [];
+
+for (let i = 0; i < numPoints; i++) {
+    const p1 = points[i];
+
+    // K-nearest neighbors 방식으로 삼각형 생성
+    const distances = points.map((p2, j) => ({
+        index: j,
+        dist: Math.sqrt(
+            (p2.targetX - p1.targetX) ** 2 +
+            (p2.targetY - p1.targetY) ** 2 +
+            (p2.targetZ - p1.targetZ) ** 2
+        )
+    })).filter(d => d.index !== i).sort((a, b) => a.dist - b.dist);
+
+    // 가장 가까운 2개 점과 삼각형 형성
+    if (distances.length >= 2 && distances[0].dist < 0.35) {
+        triangles.push({
+            indices: [i, distances[0].index, distances[1].index],
+            delay: i / numPoints
+        });
+    }
+}
 
 // 마우스 트래킹
 let mouseInfluence = 0;
@@ -215,9 +245,24 @@ document.querySelectorAll('.nav-dot').forEach(dot => {
     });
 });
 
+// 색상 함수
+function getHolographicColor(depth, phase, alpha, isLight) {
+    const hue = (depth * 60 + phase * 30 + time * 20) % 360;
+
+    if (isLight) {
+        const saturation = 70;
+        const lightness = 35 + depth * 15;
+        return `hsla(${200 + hue * 0.3}, ${saturation}%, ${lightness}%, ${alpha})`;
+    } else {
+        const saturation = 80;
+        const lightness = 50 + depth * 20;
+        return `hsla(${180 + hue * 0.5}, ${saturation}%, ${lightness}%, ${alpha})`;
+    }
+}
+
 // 렌더링
 function render() {
-    time += 0.012;
+    time += 0.008;
 
     mouseX += (targetMouseX - mouseX) * 0.05;
     mouseY += (targetMouseY - mouseY) * 0.05;
@@ -229,217 +274,185 @@ function render() {
     ctx.fillStyle = isLight ? '#fafafa' : '#050508';
     ctx.fillRect(0, 0, width, height);
 
-    // 애니메이션 단계 (시간 기반 + 루프)
-    const cycleTime = time % 12; // 12초 주기
+    // 애니메이션 사이클 (16초)
+    const cycleTime = time % 16;
 
-    // 0-4초: Registration 진행
-    // 4-8초: Mesh 형성
-    // 8-12초: 완성된 상태 유지 후 리셋
+    // 단계별 진행률 (부드러운 전환)
+    // 0-4: 포인트 수집 (Sparse → Dense)
+    // 4-8: 메쉬 형성 (Surface Reconstruction)
+    // 8-12: 완성된 모델 감상
+    // 12-16: 부드럽게 흩어짐 → 다음 사이클
 
-    const registrationProgress = Math.min(1, cycleTime / 4);
-    const meshProgress = Math.max(0, Math.min(1, (cycleTime - 4) / 4));
-    const holdPhase = cycleTime > 8;
+    let gatherProgress, meshProgress, disperseProgress;
+    let stageText = '';
+    let stageProgress = 0;
 
-    // Easing
-    const easeRegistration = 1 - Math.pow(1 - registrationProgress, 3);
-    const easeMesh = 1 - Math.pow(1 - meshProgress, 2);
+    if (cycleTime < 4) {
+        // Gathering
+        gatherProgress = cycleTime / 4;
+        meshProgress = 0;
+        disperseProgress = 0;
+        stageText = 'POINT CLOUD ACQUISITION';
+        stageProgress = gatherProgress;
+    } else if (cycleTime < 8) {
+        // Mesh formation
+        gatherProgress = 1;
+        meshProgress = (cycleTime - 4) / 4;
+        disperseProgress = 0;
+        stageText = 'SURFACE RECONSTRUCTION';
+        stageProgress = meshProgress;
+    } else if (cycleTime < 12) {
+        // Hold & admire
+        gatherProgress = 1;
+        meshProgress = 1;
+        disperseProgress = 0;
+        stageText = '3D MODEL COMPLETE';
+        stageProgress = 1;
+    } else {
+        // Disperse smoothly
+        gatherProgress = 1;
+        meshProgress = 1 - (cycleTime - 12) / 4;
+        disperseProgress = (cycleTime - 12) / 4;
+        stageText = 'PREPARING NEXT SCAN';
+        stageProgress = 1 - disperseProgress;
+    }
 
-    // 전체 회전
-    const globalRotY = time * 0.2 + (mouseX / width - 0.5) * 0.5 * mouseInfluence;
-    const globalRotX = 0.2 + (mouseY / height - 0.5) * 0.3 * mouseInfluence;
+    // 포인트 업데이트
+    points.forEach(p => p.update(gatherProgress, disperseProgress));
+
+    // 전역 회전
+    const rotY = time * 0.3 + (mouseX / width - 0.5) * mouseInfluence * 0.8;
+    const rotX = 0.25 + (mouseY / height - 0.5) * mouseInfluence * 0.4;
 
     // 페이드
     const fadeAlpha = Math.max(0, 1 - scrollProgress * 2);
 
-    // Source cloud 위치 업데이트 (registration 애니메이션)
-    sourceCloud.forEach((p, i) => {
-        const target = targetCloud[i];
-        p.x = p.startX + (target.origX - p.startX) * easeRegistration;
-        p.y = p.startY + (target.origY - p.startY) * easeRegistration;
-        p.z = p.startZ + (target.origZ - p.startZ) * easeRegistration;
+    if (fadeAlpha <= 0) {
+        requestAnimationFrame(render);
+        return;
+    }
+
+    // 포인트 변환
+    const transformed = points.map((p, i) => {
+        let pos = { x: p.x, y: p.y, z: p.z };
+        pos = rotateY(pos, rotY);
+        pos = rotateX(pos, rotX);
+        const proj = project(pos);
+        return { ...proj, index: i, point: p };
     });
 
-    // 모든 포인트 변환 및 투영
-    const transformedSource = sourceCloud.map(p => {
-        let rot = rotateY(p.x, p.y, p.z, globalRotY);
-        rot = rotateX(rot.x, rot.y, rot.z, globalRotX);
-        return { ...project(rot.x, rot.y, rot.z), orig: p };
-    });
+    // Z 정렬
+    const sorted = [...transformed].sort((a, b) => b.z - a.z);
 
-    const transformedTarget = targetCloud.map(p => {
-        let rot = rotateY(p.origX, p.origY, p.origZ, globalRotY);
-        rot = rotateX(rot.x, rot.y, rot.z, globalRotX);
-        return { ...project(rot.x, rot.y, rot.z), orig: p };
-    });
+    // 메쉬 그리기
+    const easedMesh = easeOutQuart(meshProgress);
 
-    // 메쉬 그리기 (mesh 단계에서)
-    if (easeMesh > 0 && fadeAlpha > 0) {
-        meshTriangles.forEach((tri, idx) => {
-            const delay = idx / meshTriangles.length;
-            const triProgress = Math.max(0, Math.min(1, (easeMesh - delay * 0.5) * 2));
+    if (easedMesh > 0) {
+        // 삼각형들 Z 정렬
+        const sortedTris = triangles.map(tri => {
+            const p1 = transformed[tri.indices[0]];
+            const p2 = transformed[tri.indices[1]];
+            const p3 = transformed[tri.indices[2]];
+            const avgZ = (p1.z + p2.z + p3.z) / 3;
+            return { ...tri, p1, p2, p3, avgZ };
+        }).sort((a, b) => b.avgZ - a.avgZ);
 
+        sortedTris.forEach(tri => {
+            const triProgress = Math.max(0, Math.min(1, (easedMesh - tri.delay * 0.5) * 2));
             if (triProgress <= 0) return;
 
-            const p1 = transformedTarget[tri[0]];
-            const p2 = transformedTarget[tri[1]];
-            const p3 = transformedTarget[tri[2]];
+            const { p1, p2, p3, avgZ } = tri;
+            const depth = (avgZ + 1.5) / 3;
 
-            if (!p1 || !p2 || !p3) return;
-
-            const avgZ = (p1.z + p2.z + p3.z) / 3;
-            const depth = (avgZ + 2) / 4;
-
-            // 면 채우기
-            const fillAlpha = triProgress * fadeAlpha * 0.08 * depth;
+            // 면 채우기 (홀로그래픽)
+            const fillAlpha = triProgress * fadeAlpha * 0.12 * depth;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.lineTo(p3.x, p3.y);
             ctx.closePath();
-
-            if (isLight) {
-                ctx.fillStyle = `rgba(100, 50, 150, ${fillAlpha})`;
-            } else {
-                ctx.fillStyle = `rgba(100, 200, 255, ${fillAlpha})`;
-            }
+            ctx.fillStyle = getHolographicColor(depth, tri.delay, fillAlpha, isLight);
             ctx.fill();
 
-            // 와이어프레임
-            const wireAlpha = triProgress * fadeAlpha * 0.3 * depth;
-            ctx.strokeStyle = isLight
-                ? `rgba(100, 50, 150, ${wireAlpha})`
-                : `rgba(150, 220, 255, ${wireAlpha})`;
-            ctx.lineWidth = 0.5;
+            // 엣지 (와이어프레임)
+            const edgeAlpha = triProgress * fadeAlpha * 0.25 * depth;
+            ctx.strokeStyle = getHolographicColor(depth, tri.delay + 0.5, edgeAlpha, isLight);
+            ctx.lineWidth = 0.8;
             ctx.stroke();
         });
     }
 
-    // Correspondence lines (registration 진행 중)
-    if (easeRegistration < 1 && easeRegistration > 0 && fadeAlpha > 0) {
-        const lineAlpha = (1 - easeRegistration) * fadeAlpha * 0.3;
-
-        for (let i = 0; i < sourceCloud.length; i += 8) {
-            const src = transformedSource[i];
-            const tgt = transformedTarget[i];
-
-            if (!src || !tgt) continue;
-
-            const gradient = ctx.createLinearGradient(src.x, src.y, tgt.x, tgt.y);
-            if (isLight) {
-                gradient.addColorStop(0, `rgba(0, 150, 200, ${lineAlpha})`);
-                gradient.addColorStop(1, `rgba(180, 50, 150, ${lineAlpha})`);
-            } else {
-                gradient.addColorStop(0, `rgba(0, 255, 255, ${lineAlpha})`);
-                gradient.addColorStop(1, `rgba(255, 100, 200, ${lineAlpha})`);
-            }
-
-            ctx.beginPath();
-            ctx.moveTo(src.x, src.y);
-            ctx.lineTo(tgt.x, tgt.y);
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-        }
-    }
-
-    // Z 정렬을 위해 합치기
-    const allPoints = [
-        ...transformedSource.map(p => ({ ...p, type: 'source' })),
-        ...transformedTarget.map(p => ({ ...p, type: 'target' }))
-    ].sort((a, b) => b.z - a.z);
-
     // 포인트 그리기
-    allPoints.forEach(p => {
-        if (fadeAlpha <= 0) return;
+    sorted.forEach(tp => {
+        const depth = (tp.z + 1.5) / 3;
+        const size = (1 + depth * 1.5) * tp.scale;
 
-        const depth = (p.z + 2) / 4;
-        const size = (1.5 + depth) * p.scale;
+        // 메쉬가 완성되면 포인트 페이드
+        const pointFade = meshProgress < 1 ? 1 : (1 - (meshProgress - 0.8) * 5);
+        const alpha = fadeAlpha * (0.3 + depth * 0.7) * Math.max(0.15, pointFade);
 
-        let alpha, color, glowColor;
-
-        if (p.type === 'source') {
-            // Registration 완료 후 페이드 아웃
-            const sourceAlpha = 1 - easeMesh * 0.8;
-            alpha = fadeAlpha * (0.4 + depth * 0.6) * sourceAlpha;
-
-            if (isLight) {
-                color = `rgba(0, 130, 180, ${alpha})`;
-                glowColor = `rgba(0, 130, 180, ${alpha * 0.3})`;
-            } else {
-                color = `rgba(50, 220, 255, ${alpha})`;
-                glowColor = `rgba(0, 200, 255, ${alpha * 0.3})`;
-            }
-        } else {
-            alpha = fadeAlpha * (0.4 + depth * 0.6);
-
-            if (isLight) {
-                color = `rgba(150, 50, 130, ${alpha})`;
-                glowColor = `rgba(150, 50, 130, ${alpha * 0.3})`;
-            } else {
-                color = `rgba(255, 120, 200, ${alpha})`;
-                glowColor = `rgba(255, 100, 180, ${alpha * 0.3})`;
-            }
-        }
+        if (alpha <= 0.01) return;
 
         // 글로우
+        const glowSize = size * 4;
+        const gradient = ctx.createRadialGradient(tp.x, tp.y, 0, tp.x, tp.y, glowSize);
+        const glowColor = getHolographicColor(depth, tp.index / numPoints, alpha * 0.4, isLight);
+        const coreColor = getHolographicColor(depth, tp.index / numPoints, alpha, isLight);
+
+        gradient.addColorStop(0, coreColor);
+        gradient.addColorStop(0.3, glowColor);
+        gradient.addColorStop(1, 'transparent');
+
         ctx.beginPath();
-        ctx.arc(p.x, p.y, size * 3, 0, Math.PI * 2);
-        ctx.fillStyle = glowColor;
+        ctx.arc(tp.x, tp.y, glowSize, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
         ctx.fill();
 
         // 코어
         ctx.beginPath();
-        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
-        ctx.fillStyle = color;
+        ctx.arc(tp.x, tp.y, size * 0.6, 0, Math.PI * 2);
+        ctx.fillStyle = isLight
+            ? `hsla(210, 80%, 40%, ${alpha * 1.2})`
+            : `hsla(190, 100%, 80%, ${alpha * 1.2})`;
         ctx.fill();
     });
 
-    // 단계 표시 텍스트
+    // UI 텍스트
     if (fadeAlpha > 0.3) {
-        ctx.font = '12px "Inter", sans-serif';
+        const uiAlpha = fadeAlpha * 0.8;
+
+        // 스테이지 텍스트
+        ctx.font = '11px "Inter", sans-serif';
         ctx.textAlign = 'center';
-
-        let stageText = '';
-        let progress = 0;
-
-        if (cycleTime < 4) {
-            stageText = 'POINT CLOUD REGISTRATION';
-            progress = registrationProgress;
-        } else if (cycleTime < 8) {
-            stageText = 'MESH RECONSTRUCTION';
-            progress = meshProgress;
-        } else {
-            stageText = '3D RECONSTRUCTION COMPLETE';
-            progress = 1;
-        }
-
-        const textAlpha = fadeAlpha * 0.7;
+        ctx.letterSpacing = '3px';
         ctx.fillStyle = isLight
-            ? `rgba(0, 0, 0, ${textAlpha})`
-            : `rgba(255, 255, 255, ${textAlpha})`;
-        ctx.fillText(stageText, width / 2, height - 60);
+            ? `rgba(0, 0, 0, ${uiAlpha * 0.7})`
+            : `rgba(255, 255, 255, ${uiAlpha * 0.7})`;
+        ctx.fillText(stageText, width / 2, height - 55);
 
         // 프로그레스 바
-        const barWidth = 200;
+        const barWidth = 180;
         const barHeight = 2;
         const barX = width / 2 - barWidth / 2;
-        const barY = height - 40;
+        const barY = height - 38;
 
+        // 배경
         ctx.fillStyle = isLight
-            ? `rgba(0, 0, 0, ${textAlpha * 0.2})`
-            : `rgba(255, 255, 255, ${textAlpha * 0.2})`;
+            ? `rgba(0, 0, 0, ${uiAlpha * 0.1})`
+            : `rgba(255, 255, 255, ${uiAlpha * 0.1})`;
         ctx.fillRect(barX, barY, barWidth, barHeight);
 
-        const gradientBar = ctx.createLinearGradient(barX, barY, barX + barWidth * progress, barY);
+        // 프로그레스
+        const progGradient = ctx.createLinearGradient(barX, barY, barX + barWidth, barY);
         if (isLight) {
-            gradientBar.addColorStop(0, `rgba(0, 130, 180, ${textAlpha})`);
-            gradientBar.addColorStop(1, `rgba(150, 50, 130, ${textAlpha})`);
+            progGradient.addColorStop(0, `rgba(0, 150, 200, ${uiAlpha})`);
+            progGradient.addColorStop(1, `rgba(100, 50, 180, ${uiAlpha})`);
         } else {
-            gradientBar.addColorStop(0, `rgba(50, 220, 255, ${textAlpha})`);
-            gradientBar.addColorStop(1, `rgba(255, 120, 200, ${textAlpha})`);
+            progGradient.addColorStop(0, `rgba(100, 220, 255, ${uiAlpha})`);
+            progGradient.addColorStop(1, `rgba(200, 150, 255, ${uiAlpha})`);
         }
-        ctx.fillStyle = gradientBar;
-        ctx.fillRect(barX, barY, barWidth * progress, barHeight);
+        ctx.fillStyle = progGradient;
+        ctx.fillRect(barX, barY, barWidth * stageProgress, barHeight);
     }
 
     requestAnimationFrame(render);
@@ -458,7 +471,6 @@ if (savedTheme === 'light') {
 
 themeToggle.addEventListener('click', () => {
     const isLight = html.getAttribute('data-theme') === 'light';
-
     if (isLight) {
         html.removeAttribute('data-theme');
         localStorage.setItem('theme', 'dark');
