@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Generator</title>
+    <style>
+        body {
+            margin: 0;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+        canvas {
+            border: 1px solid #333;
+            max-width: 90vw;
+        }
+        button {
+            margin-top: 24px;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #00e5ff, #0070ff);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+        button:hover { opacity: 0.9; }
+        p { color: #888; margin-top: 12px; font-size: 14px; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="canvas" width="1200" height="630"></canvas>
+    <button onclick="download()">Download og-image.png</button>
+    <p>1200 x 630px &mdash; Save this as og-image.png in your project root</p>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const W = 1200, H = 630;
+
+        function draw() {
+            // === Background - Light warm white ===
+            ctx.fillStyle = '#f5f3f0';
+            ctx.fillRect(0, 0, W, H);
+
+            // Subtle grid pattern
+            ctx.strokeStyle = 'rgba(0,0,0,0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < W; x += 40) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, H);
+                ctx.stroke();
+            }
+            for (let y = 0; y < H; y += 40) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(W, y);
+                ctx.stroke();
+            }
+
+            // Accent glow (top-right)
+            const glow1 = ctx.createRadialGradient(W - 100, 80, 0, W - 100, 80, 400);
+            glow1.addColorStop(0, 'rgba(0, 150, 220, 0.08)');
+            glow1.addColorStop(1, 'rgba(0, 150, 220, 0)');
+            ctx.fillStyle = glow1;
+            ctx.fillRect(0, 0, W, H);
+
+            // Accent glow (bottom-left)
+            const glow2 = ctx.createRadialGradient(150, H - 100, 0, 150, H - 100, 350);
+            glow2.addColorStop(0, 'rgba(0, 80, 200, 0.06)');
+            glow2.addColorStop(1, 'rgba(0, 80, 200, 0)');
+            ctx.fillStyle = glow2;
+            ctx.fillRect(0, 0, W, H);
+
+            // === Card border (subtle) ===
+            const borderGrad = ctx.createLinearGradient(60, 60, W - 60, H - 60);
+            borderGrad.addColorStop(0, 'rgba(0, 150, 200, 0.25)');
+            borderGrad.addColorStop(0.5, 'rgba(0, 80, 200, 0.08)');
+            borderGrad.addColorStop(1, 'rgba(0, 150, 200, 0.2)');
+            ctx.strokeStyle = borderGrad;
+            ctx.lineWidth = 1.5;
+            roundRect(ctx, 60, 50, W - 120, H - 100, 16);
+            ctx.stroke();
+
+            // === Top-left accent line ===
+            const lineGrad = ctx.createLinearGradient(90, 90, 90, 220);
+            lineGrad.addColorStop(0, '#00b8d4');
+            lineGrad.addColorStop(1, '#0055cc');
+            ctx.fillStyle = lineGrad;
+            ctx.fillRect(90, 90, 4, 130);
+
+            // === Content - Left side ===
+            const leftX = 120;
+
+            // Label
+            ctx.fillStyle = 'rgba(0, 140, 190, 0.8)';
+            ctx.font = '500 13px Inter';
+            ctx.letterSpacing = '4px';
+            ctx.fillText('3D COMPUTER VISION & AI RESEARCHER', leftX, 115);
+
+            // Name
+            ctx.fillStyle = '#1a1a2e';
+            ctx.font = '800 72px Inter';
+            ctx.letterSpacing = '-1px';
+            ctx.fillText('MOON-KEY', leftX, 200);
+
+            // Tagline
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.45)';
+            ctx.font = '300 18px Inter';
+            ctx.letterSpacing = '0px';
+            ctx.fillText('Bridging geometry and intelligence.', leftX, 248);
+            ctx.fillText('From point clouds to neural 3D reconstruction.', leftX, 274);
+
+            // === Divider line ===
+            const divGrad = ctx.createLinearGradient(leftX, 0, 500, 0);
+            divGrad.addColorStop(0, 'rgba(0, 150, 200, 0.3)');
+            divGrad.addColorStop(1, 'rgba(0, 150, 200, 0)');
+            ctx.fillStyle = divGrad;
+            ctx.fillRect(leftX, 310, 380, 1);
+
+            // === Contact info ===
+            // Email icon + text
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.5)';
+            ctx.font = '400 15px Inter';
+            ctx.fillText('j3323968@gmail.com', leftX + 28, 355);
+
+            // Email icon (simple envelope)
+            ctx.strokeStyle = 'rgba(0, 140, 190, 0.7)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(leftX, 343);
+            ctx.lineTo(leftX + 18, 343);
+            ctx.lineTo(leftX + 18, 358);
+            ctx.lineTo(leftX, 358);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(leftX, 343);
+            ctx.lineTo(leftX + 9, 351);
+            ctx.lineTo(leftX + 18, 343);
+            ctx.stroke();
+
+            // Website
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.5)';
+            ctx.font = '400 15px Inter';
+            ctx.fillText('moon-key.pages.dev', leftX + 28, 390);
+
+            // Globe icon
+            ctx.strokeStyle = 'rgba(0, 140, 190, 0.7)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(leftX + 9, 384, 9, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.ellipse(leftX + 9, 384, 5, 9, 0, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(leftX, 384);
+            ctx.lineTo(leftX + 18, 384);
+            ctx.stroke();
+
+            // Blog
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.5)';
+            ctx.font = '400 15px Inter';
+            ctx.fillText('moon-key.tistory.com', leftX + 28, 425);
+
+            // Pen icon
+            ctx.strokeStyle = 'rgba(0, 140, 190, 0.7)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(leftX + 14, 414);
+            ctx.lineTo(leftX + 4, 424);
+            ctx.lineTo(leftX + 2, 428);
+            ctx.lineTo(leftX + 6, 426);
+            ctx.lineTo(leftX + 16, 416);
+            ctx.closePath();
+            ctx.stroke();
+
+            // === Right side - Large decorative M ===
+            const mGrad = ctx.createLinearGradient(750, 120, 1050, 500);
+            mGrad.addColorStop(0, 'rgba(0, 150, 200, 0.06)');
+            mGrad.addColorStop(1, 'rgba(0, 80, 200, 0.03)');
+            ctx.fillStyle = mGrad;
+            ctx.font = '900 420px Inter';
+            ctx.fillText('M', 720, 520);
+
+            // === Bottom bar - Skills ===
+            const skills = ['Point Cloud', 'Neural 3D', 'Deep Learning', 'Multi-view Geometry', 'PyTorch'];
+            ctx.font = '400 12px Inter';
+            let skillX = leftX;
+            skills.forEach((skill, i) => {
+                // Pill background
+                const tw = ctx.measureText(skill).width;
+                ctx.fillStyle = 'rgba(0, 150, 200, 0.07)';
+                ctx.strokeStyle = 'rgba(0, 150, 200, 0.2)';
+                ctx.lineWidth = 1;
+                roundRect(ctx, skillX, 470, tw + 24, 28, 14);
+                ctx.fill();
+                roundRect(ctx, skillX, 470, tw + 24, 28, 14);
+                ctx.stroke();
+
+                // Pill text
+                ctx.fillStyle = 'rgba(0, 120, 170, 0.7)';
+                ctx.font = '400 12px Inter';
+                ctx.fillText(skill, skillX + 12, 489);
+
+                skillX += tw + 24 + 10;
+            });
+
+            // === Bottom-right copyright ===
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.2)';
+            ctx.font = '300 12px Inter';
+            ctx.textAlign = 'right';
+            ctx.fillText('\u00A9 2026 MOON-KEY', W - 90, H - 70);
+            ctx.textAlign = 'left';
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        function download() {
+            const link = document.createElement('a');
+            link.download = 'og-image.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Wait for font to load, then draw
+        document.fonts.ready.then(() => {
+            draw();
+        });
+    </script>
+</body>
+</html>
