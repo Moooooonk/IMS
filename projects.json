@@ -43,6 +43,13 @@
     "live": true
   },
   {
+    "title": "LexNSound",
+    "description": "DSP 기반 악기 연습 플랫폼 - RMS/FFT 실시간 분석, 코드 전환 추적, 음정·화음 귀 훈련",
+    "url": "https://lexnsound.pages.dev/",
+    "tag": "PROJECT",
+    "live": true
+  },
+  {
     "title": "Salieri's Library",
     "description": "전문성 개발 진단 및 맞춤 조언 서비스",
     "url": "https://salieri-s-library.pages.dev/",
