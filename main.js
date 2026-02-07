@@ -28,9 +28,13 @@ async function loadProjects() {
                                project.tag === 'ARCHIVE' ? 'archive' :
                                project.tag === 'RESEARCH' ? 'research' :
                                project.tag === 'TECHNICAL' ? 'technical' : '';
+                const liveBadge = project.live ? '<span class="live-badge">LIVE</span>' : '';
                 return `
                     <a href="${project.url}" target="_blank" class="card">
-                        <span class="tag ${tagClass}">${project.tag}</span>
+                        <div class="card-header">
+                            <span class="tag ${tagClass}">${project.tag}</span>
+                            ${liveBadge}
+                        </div>
                         <h3>${project.title}</h3>
                         <p>${project.description}</p>
                     </a>

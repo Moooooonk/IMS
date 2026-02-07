@@ -396,6 +396,42 @@ section.visible .card:nth-child(4) { transition-delay: 0.4s; }
 .tag.project { background: var(--accent-tertiary); }
 .tag.research { background: #10b981; }
 
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+.card-header .tag {
+    margin-bottom: 0;
+}
+.live-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    color: #00e676;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.card-header .live-badge {
+    margin-bottom: 0;
+}
+.live-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00e676;
+    animation: livePulse 2s ease-in-out infinite;
+}
+@keyframes livePulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(0, 230, 118, 0); }
+}
+
 .view-all-link {
     display: inline-block;
     margin-top: 2rem;

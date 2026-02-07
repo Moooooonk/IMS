@@ -102,8 +102,8 @@
             const leftX = 120;
 
             // Label
-            ctx.fillStyle = 'rgba(0, 140, 190, 0.8)';
-            ctx.font = '500 13px Inter';
+            ctx.fillStyle = 'rgba(0, 120, 170, 1)';
+            ctx.font = '600 13px Inter';
             ctx.letterSpacing = '4px';
             ctx.fillText('3D COMPUTER VISION & AI RESEARCHER', leftX, 115);
 
@@ -114,8 +114,8 @@
             ctx.fillText('MOON-KEY', leftX, 200);
 
             // Tagline
-            ctx.fillStyle = 'rgba(30, 30, 50, 0.45)';
-            ctx.font = '300 18px Inter';
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.75)';
+            ctx.font = '400 18px Inter';
             ctx.letterSpacing = '0px';
             ctx.fillText('Bridging geometry and intelligence.', leftX, 248);
             ctx.fillText('From point clouds to neural 3D reconstruction.', leftX, 274);
@@ -129,12 +129,12 @@
 
             // === Contact info ===
             // Email icon + text
-            ctx.fillStyle = 'rgba(30, 30, 50, 0.5)';
-            ctx.font = '400 15px Inter';
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.8)';
+            ctx.font = '500 15px Inter';
             ctx.fillText('j3323968@gmail.com', leftX + 28, 355);
 
             // Email icon (simple envelope)
-            ctx.strokeStyle = 'rgba(0, 140, 190, 0.7)';
+            ctx.strokeStyle = 'rgba(0, 120, 170, 0.9)';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.moveTo(leftX, 343);
@@ -150,12 +150,12 @@
             ctx.stroke();
 
             // Website
-            ctx.fillStyle = 'rgba(30, 30, 50, 0.5)';
-            ctx.font = '400 15px Inter';
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.8)';
+            ctx.font = '500 15px Inter';
             ctx.fillText('moon-key.pages.dev', leftX + 28, 390);
 
             // Globe icon
-            ctx.strokeStyle = 'rgba(0, 140, 190, 0.7)';
+            ctx.strokeStyle = 'rgba(0, 120, 170, 0.9)';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.arc(leftX + 9, 384, 9, 0, Math.PI * 2);
@@ -169,12 +169,12 @@
             ctx.stroke();
 
             // Blog
-            ctx.fillStyle = 'rgba(30, 30, 50, 0.5)';
-            ctx.font = '400 15px Inter';
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.8)';
+            ctx.font = '500 15px Inter';
             ctx.fillText('moon-key.tistory.com', leftX + 28, 425);
 
             // Pen icon
-            ctx.strokeStyle = 'rgba(0, 140, 190, 0.7)';
+            ctx.strokeStyle = 'rgba(0, 120, 170, 0.9)';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.moveTo(leftX + 14, 414);
@@ -200,8 +200,8 @@
             skills.forEach((skill, i) => {
                 // Pill background
                 const tw = ctx.measureText(skill).width;
-                ctx.fillStyle = 'rgba(0, 150, 200, 0.07)';
-                ctx.strokeStyle = 'rgba(0, 150, 200, 0.2)';
+                ctx.fillStyle = 'rgba(0, 150, 200, 0.12)';
+                ctx.strokeStyle = 'rgba(0, 130, 180, 0.4)';
                 ctx.lineWidth = 1;
                 roundRect(ctx, skillX, 470, tw + 24, 28, 14);
                 ctx.fill();
@@ -209,7 +209,7 @@
                 ctx.stroke();
 
                 // Pill text
-                ctx.fillStyle = 'rgba(0, 120, 170, 0.7)';
+                ctx.fillStyle = 'rgba(0, 100, 150, 1)';
                 ctx.font = '400 12px Inter';
                 ctx.fillText(skill, skillX + 12, 489);
 
@@ -217,7 +217,7 @@
             });
 
             // === Bottom-right copyright ===
-            ctx.fillStyle = 'rgba(30, 30, 50, 0.2)';
+            ctx.fillStyle = 'rgba(30, 30, 50, 0.4)';
             ctx.font = '300 12px Inter';
             ctx.textAlign = 'right';
             ctx.fillText('\u00A9 2026 MOON-KEY', W - 90, H - 70);

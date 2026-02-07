@@ -4,43 +4,50 @@
     "description": "XRPL Korea 해커톤 최우수상 - SBERT/Faiss 문서 유사도 검사 및 규칙 기반 자동 분류 시스템 개발",
     "url": "https://moon-key.tistory.com/entry/XRPL-%ED%95%B4%EC%BB%A4%ED%86%A4-%EC%B5%9C%EC%9A%B0%EC%88%98%EC%83%81-%EC%88%98%EC%83%81-%ED%9B%84%EA%B8%B0-AI%EC%99%80-%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8%EC%9D%98-%EB%A7%8C%EB%82%A8-XRPedia",
     "github": "https://github.com/XRPL-Hackathon/server-ai",
-    "tag": "PROJECT"
+    "tag": "PROJECT",
+    "live": false
   },
   {
     "title": "DermaMatch",
     "description": "피부 병변 분석을 위한 3D 비전 기반 매칭 시스템",
     "url": "https://dermamat.pages.dev/",
-    "tag": "PROJECT"
+    "tag": "PROJECT",
+    "live": true
   },
   {
     "title": "Project Oracle",
     "description": "AI 기반 예측 및 분석 시스템",
     "url": "https://project-oracle.pages.dev/",
-    "tag": "PROJECT"
+    "tag": "PROJECT",
+    "live": true
   },
   {
     "title": "MIIMIC",
     "description": "수학 기반 이미지 색감 전이 도구",
     "url": "https://miimic.pages.dev/",
-    "tag": "PROJECT"
+    "tag": "PROJECT",
+    "live": true
   },
   {
     "title": "관장 마광철",
     "description": "데이터 기반 초정밀 피트니스 - 사진 분석을 통한 신체 계측, 식단 최적화, 운동 처방 서비스",
     "url": "https://director-ma.pages.dev/",
-    "tag": "PROJECT"
+    "tag": "PROJECT",
+    "live": true
   },
   {
     "title": "Apophenia",
     "description": "숨겨진 상관관계를 발견하는 데이터 분석 엔진",
     "url": "https://apophenia.pages.dev/",
-    "tag": "PROJECT"
+    "tag": "PROJECT",
+    "live": true
   },
   {
     "title": "Salieri's Library",
     "description": "전문성 개발 진단 및 맞춤 조언 서비스",
     "url": "https://salieri-s-library.pages.dev/",
-    "tag": "PROJECT"
+    "tag": "PROJECT",
+    "live": true
   },
   {
     "title": "Velleity Archive",
