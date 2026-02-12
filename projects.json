@@ -57,6 +57,20 @@
     "live": true
   },
   {
+    "title": "Aut-Veritas",
+    "description": "AI vs 사람 - SNS 피드 속 글의 출처를 판별하는 미디어 리터러시 훈련 플랫폼",
+    "url": "https://aut-veritas.pages.dev/",
+    "tag": "PROJECT",
+    "live": true
+  },
+  {
+    "title": "Trend Stock",
+    "description": "검색 트렌드를 주식처럼 거래하는 시뮬레이션 플랫폼",
+    "url": "https://trend-stock.pages.dev/",
+    "tag": "PROJECT",
+    "live": true
+  },
+  {
     "title": "Velleity Archive",
     "description": "사유의 조각들을 모아둔 디지털 아카이브",
     "url": "https://velleity-archive.pages.dev/",
