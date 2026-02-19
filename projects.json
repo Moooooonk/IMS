@@ -71,6 +71,13 @@
     "live": true
   },
   {
+    "title": "계륵 (GYEREUK)",
+    "description": "버려진 사이드 프로젝트의 자유 거래 마켓플레이스 - 개발, 디자인, 연구, 글쓰기 미완성 프로젝트 교환 플랫폼",
+    "url": "https://gyereuk.pages.dev/",
+    "tag": "PROJECT",
+    "live": true
+  },
+  {
     "title": "Velleity Archive",
     "description": "사유의 조각들을 모아둔 디지털 아카이브",
     "url": "https://velleity-archive.pages.dev/",
