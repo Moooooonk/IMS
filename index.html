@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
     <title>MOON-KEY | 3D Computer Vision & AI Researcher</title>
     <meta name="description" content="AI Researcher specializing in 3D computer vision, geometric deep learning, point cloud processing, and multi-view geometry.">
     <meta name="keywords" content="3D Computer Vision, AI, Deep Learning, Point Cloud, Multi-view Geometry, Neural Networks, Camera Calibration, Depth Estimation">
@@ -51,7 +52,7 @@
         </svg>
     </button>
 
-    <canvas id="dct-canvas"></canvas>
+    <canvas id="dct-canvas" aria-label="3D point cloud reconstruction animation visualizing the research pipeline" role="img"></canvas>
 
     <main>
         <section id="hero">
@@ -114,7 +115,7 @@
             <p class="subtitle">연구 협업, 기술 자문, 또는 학술적 논의를 환영합니다.</p>
             <div class="contact-links">
                 <a href="mailto:j3323968@gmail.com" class="contact-link">EMAIL</a>
-                <a href="https://moon-key.tistory.com" target="_blank" class="contact-link">BLOG</a>
+                <a href="https://moon-key.tistory.com" target="_blank" rel="noopener noreferrer" class="contact-link">BLOG</a>
             </div>
         </section>
     </main>
