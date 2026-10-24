@@ -1,0 +1,11 @@
+
+
+# Local agent settings and credentials must never be published.
+.claude/
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+*.pem
+*.key

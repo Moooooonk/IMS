@@ -1,218 +1,353 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
-    <title>MOON-KEY | Works</title>
-    <meta name="description" content="MOON-KEY의 모든 프로젝트와 작업물을 확인하세요.">
-    <meta property="og:site_name" content="MOON-KEY">
-    <meta property="og:title" content="MOON-KEY | All Projects">
-    <meta property="og:description" content="3D Computer Vision & AI 연구자의 프로젝트 포트폴리오">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://moon-key.pages.dev/projects.html">
-    <meta property="og:locale" content="ko_KR">
-    <meta property="og:image" content="https://moon-key.pages.dev/og-image.png?v=2">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://moon-key.pages.dev/og-image.png?v=2">
-    <meta name="theme-color" content="#050508">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Theme toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg class="sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-        </svg>
-        <svg class="moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-    </button>
-
-    <main class="projects-page">
-        <a href="index.html" class="back-link">
-            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            BACK TO HOME
-        </a>
-
-        <div class="projects-header">
-            <h1>Works</h1>
-            <p>아이디어를 현실로 만드는 과정에서 탄생한 작업물들입니다. 3D 비전, AI, 웹 서비스 등 다양한 분야를 탐구합니다.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <title>Work index — MOON-KEY</title>
+    <meta
+      name="description"
+      content="MOON-KEY의 웹 도구, 연구 프로젝트와 기술 글을 검색하고 살펴보세요."
+    />
+    <link rel="canonical" href="https://moon-key.pages.dev/projects.html" />
+    <meta property="og:title" content="Work index — MOON-KEY" />
+    <meta
+      property="og:description"
+      content="Projects, experiments, and technical writing."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://moon-key.pages.dev/projects.html"
+    />
+    <meta
+      property="og:image"
+      content="https://moon-key.pages.dev/og-image.png?v=20261022"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f1efe7" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=20261022" />
+    <script src="main.js?v=20261022" defer></script>
+  </head>
+  <body data-page="index">
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header wrap">
+      <a class="wordmark" href="index.html" aria-label="MOON-KEY 홈"
+        >MOON<span class="brand-mark" aria-hidden="true">✳</span>KEY</a
+      ><span class="header-note">INDEPENDENT RESEARCH & BUILDING</span>
+      <nav aria-label="주 메뉴">
+        <a href="index.html">Home ↗</a><a href="index.html#contact">Contact</a
+        ><button
+          class="theme-toggle"
+          type="button"
+          aria-label="어두운 테마로 전환"
+          aria-pressed="false"
+        >
+          Dark <span aria-hidden="true">◐</span>
+        </button>
+      </nav>
+    </header>
+    <main id="main" class="index-main wrap">
+      <div class="section-heading">
+        <span class="eyebrow">THE WORK INDEX</span
+        ><span class="section-side-note">PROJECTS / EXPERIMENTS / WRITING</span>
+      </div>
+      <div class="index-title">
+        <h1>Things I've<br /><em>put into the world.</em></h1>
+        <p>
+          아이디어를 만들고, 생각을 기록한 결과들.<br />웹 프로젝트와 연구
+          노트를 한곳에 모았습니다.
+        </p>
+      </div>
+      <div class="index-toolbar" hidden id="indexToolbar">
+        <div class="filter-tabs" role="group" aria-label="작업 종류">
+          <button
+            class="active"
+            data-filter="all"
+            type="button"
+            aria-pressed="true"
+          >
+            All</button
+          ><button data-filter="PROJECT" type="button" aria-pressed="false">
+            Projects</button
+          ><button data-filter="TECHNICAL" type="button" aria-pressed="false">
+            Writing</button
+          ><button data-filter="ARCHIVE" type="button" aria-pressed="false">
+            Archives
+          </button>
         </div>
-
-        <div class="stats-summary">
-            <div class="stat">
-                <span class="stat-num" id="totalProjects">0</span>
-                <span class="stat-label">TOTAL WORKS</span>
-            </div>
-            <div class="stat">
-                <span class="stat-num" id="liveProjects">0</span>
-                <span class="stat-label">LIVE SERVICES</span>
-            </div>
-            <div class="stat">
-                <span class="stat-num" id="technicalPosts">0</span>
-                <span class="stat-label">TECHNICAL POSTS</span>
-            </div>
-        </div>
-
-        <div class="filter-tabs">
-            <button class="filter-tab active" data-filter="all">ALL</button>
-            <button class="filter-tab" data-filter="PROJECT">PROJECTS</button>
-            <button class="filter-tab" data-filter="TECHNICAL">TECHNICAL</button>
-            <button class="filter-tab" data-filter="ARCHIVE">ARCHIVE</button>
-        </div>
-
-        <div class="projects-grid" id="projectsGrid">
-            <!-- Projects loaded dynamically -->
-        </div>
+        <label class="search-label"
+          ><span class="sr-only">작업 검색</span
+          ><input
+            id="projectSearch"
+            type="search"
+            placeholder="이름, 주제 검색"
+            maxlength="120"
+            autocomplete="off"
+          /><span aria-hidden="true">⌕</span></label
+        >
+      </div>
+      <p id="resultCount" class="result-count" role="status" aria-live="polite">
+        프로젝트와 기술 글
+      </p>
+      <div id="projectsGrid" class="index-grid">
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/entry/XRPL-%ED%95%B4%EC%BB%A4%ED%86%A4-%EC%B5%9C%EC%9A%B0%EC%88%98%EC%83%81-%EC%88%98%EC%83%81-%ED%9B%84%EA%B8%B0-AI%EC%99%80-%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8%EC%9D%98-%EB%A7%8C%EB%82%A8-XRPedia"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>XRPedia</h2>
+          <p>
+            XRPL Korea 해커톤 최우수상 - SBERT/Faiss 문서 유사도 검사 및 규칙
+            기반 자동 분류 시스템 개발
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://dermamat.net/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>DermaMatch</h2>
+          <p>
+            브라우저에서 얼굴 랜드마크와 피부 이미지를 살펴보는 실험용 분석
+            도구. 의료 진단을 제공하지 않습니다.
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://project-oracle.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>Project Oracle</h2>
+          <p>
+            소득, 지출, 부채와 가정을 바탕으로 미래 현금흐름을 계산하는 재무
+            시뮬레이터
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://miimic.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>MIIMIC</h2>
+          <p>수학 기반 이미지 색감 전이 도구</p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://director-ma.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>관장 마광철</h2>
+          <p>
+            신체 치수 추정, 영양 목표와 예산에 따른 식단 최적화, 운동 계획을
+            돕는 피트니스 도구
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://apophenia.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>Apophenia</h2>
+          <p>
+            시계열 데이터의 상관관계를 탐색하고, 상관관계와 인과관계의 차이를
+            살펴보는 도구
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://lexnsound.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>LexNSound</h2>
+          <p>
+            DSP 기반 악기 연습 플랫폼 - RMS/FFT 실시간 분석, 코드 전환 추적,
+            음정·화음 귀 훈련
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://salieri-s-library.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>Salieri&#x27;s Library</h2>
+          <p>연습 습관을 돌아보는 자기평가와 목표 설계 도구</p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://aut-veritas.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>Aut-Veritas</h2>
+          <p>
+            AI vs 사람 - SNS 피드 속 글의 출처를 판별하는 미디어 리터러시 훈련
+            플랫폼
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://trend-stock.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>Trend Stock</h2>
+          <p>검색 트렌드를 주식처럼 거래하는 시뮬레이션 플랫폼</p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://gyereuk.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>계륵 (GYEREUK)</h2>
+          <p>
+            미완성 사이드 프로젝트를 둘러보고 아이디어와 작업물을 공유하는
+            프로젝트 목록
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://velleity-archive.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">ARCHIVE</span>
+          <h2>Velleity Archive</h2>
+          <p>이루지 못한 꿈을 기록하고, 이 기기에 남겨두는 디지털 아카이브</p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://zinance.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">PROJECT</span>
+          <h2>Zinance</h2>
+          <p>금융 용어, 보험 견적 비교와 계산을 위한 금융 이해 도구</p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/category/3D%20Computer%20Vision"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">WRITING</span>
+          <h2>Fundamental &amp; Essential Matrix</h2>
+          <p>
+            다시점 기하학의 핵심 - 에피폴라 기하학과 카메라 간 관계 수학적 분석
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/entry/Classical-vs-Deep-Learning-ICP%EC%99%80-DCP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90-%EB%B6%84%EC%84%9D%EB%A7%A4%EC%9A%B0-%EC%89%AC%EC%9A%B4-%EC%84%A4%EB%AA%85"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">WRITING</span>
+          <h2>ICP vs DCP 알고리즘 비교</h2>
+          <p>
+            Classical과 Deep Learning 기반 포인트 클라우드 정합 알고리즘 심층
+            분석
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/30"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">WRITING</span>
+          <h2>미분 가능한 JPEG 압축 레이어</h2>
+          <p>ICLR 2025 논문 분석 - 딥러닝 파이프라인 내 소프트 양자화 기법</p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/78"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">WRITING</span>
+          <h2>DCT의 수학적 원리</h2>
+          <p>
+            JPEG 압축의 핵심 - 푸리에 변환 대비 DCT의 우수성과 에너지 응집 원리
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/44"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">WRITING</span>
+          <h2>딥러닝 옵티마이저 총정리</h2>
+          <p>
+            SGD부터 Adam까지 - 각 최적화 알고리즘의 수식, 의미, 장단점 체계적
+            분석
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/55"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">WRITING</span>
+          <h2>데이터 불균형의 함정</h2>
+          <p>
+            99.8% 정확도 모델이 쓸모없는 이유 - 언더샘플링, SMOTE, 가중치 기법
+            비교
+          </p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+        <a
+          class="index-card"
+          href="https://moon-key.tistory.com/45"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="tag">WRITING</span>
+          <h2>Adaptive Federated Optimization</h2>
+          <p>연합학습 FEDAVG 알고리즘 분석 - 분산 환경에서의 최적화 이론</p>
+          <span class="card-arrow" aria-hidden="true">↗</span></a
+        >
+      </div>
+      <div id="projectEmpty" class="empty-state" hidden>
+        <h2>일치하는 작업이 없습니다.</h2>
+        <p>다른 검색어나 분류를 선택해보세요.</p>
+        <button type="button" id="resetFilters">전체 작업 보기 ↗</button>
+      </div>
+      <p id="projectError" class="load-error" hidden>
+        검색 기능을 불러오지 못했습니다. 아래 목록에서 작업을 살펴보거나
+        페이지를 새로고침해주세요.
+      </p>
     </main>
-
-    <footer>
-        <span>&copy; 2026 MOON-KEY</span>
-        <span>Built with mathematical rigor</span>
+    <footer class="site-footer wrap">
+      <a class="wordmark" href="index.html"
+        >MOON<span class="brand-mark" aria-hidden="true">✳</span>KEY</a
+      ><span>© 2026 MOON-KEY</span
+      ><a href="index.html#contact">GET IN TOUCH ↗</a>
     </footer>
-
-    <script src="main.js"></script>
-    <script>
-        // Projects page logic
-        let allProjects = [];
-
-        async function loadPageProjects() {
-            const grid = document.getElementById('projectsGrid');
-            try {
-                const response = await fetch('projects.json');
-                if (!response.ok) throw new Error('HTTP ' + response.status);
-                allProjects = await response.json();
-                renderProjects(allProjects);
-                updateStats(allProjects);
-            } catch (error) {
-                console.error('Failed to load projects:', error);
-                showErrorFallback(grid);
-            }
-        }
-
-        function showErrorFallback(container) {
-            container.textContent = '';
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'projects-error';
-
-            const h3 = document.createElement('h3');
-            h3.textContent = 'Failed to load projects';
-
-            const p = document.createElement('p');
-            p.textContent = 'There was a problem loading the project data. Please try again.';
-
-            const btn = document.createElement('button');
-            btn.textContent = 'RETRY';
-            btn.addEventListener('click', loadPageProjects);
-
-            errorDiv.appendChild(h3);
-            errorDiv.appendChild(p);
-            errorDiv.appendChild(btn);
-            container.appendChild(errorDiv);
-        }
-
-        function renderProjects(projects) {
-            const grid = document.getElementById('projectsGrid');
-            grid.textContent = '';
-
-            projects.forEach(project => {
-                const tagClass = project.tag === 'PROJECT' ? 'project' :
-                               project.tag === 'ARCHIVE' ? 'archive' :
-                               project.tag === 'RESEARCH' ? 'research' :
-                               project.tag === 'TECHNICAL' ? 'technical' : '';
-
-                const a = document.createElement('a');
-                a.href = project.url;
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
-                a.className = 'project-card';
-                a.setAttribute('data-tag', project.tag);
-
-                const header = document.createElement('div');
-                header.className = 'card-header';
-
-                const tag = document.createElement('span');
-                tag.className = 'tag ' + tagClass;
-                tag.textContent = project.tag;
-                header.appendChild(tag);
-
-                if (project.live) {
-                    const badge = document.createElement('span');
-                    badge.className = 'live-badge';
-                    badge.textContent = 'LIVE';
-                    header.appendChild(badge);
-                }
-
-                const h3 = document.createElement('h3');
-                h3.textContent = project.title;
-
-                const p = document.createElement('p');
-                p.textContent = project.description;
-
-                const arrow = document.createElement('span');
-                arrow.className = 'arrow';
-                arrow.textContent = '\u2192';
-
-                a.appendChild(header);
-                a.appendChild(h3);
-                a.appendChild(p);
-                a.appendChild(arrow);
-
-                grid.appendChild(a);
-            });
-        }
-
-        function updateStats(projects) {
-            const total = projects.length;
-            const live = projects.filter(p => p.live === true).length;
-            const technical = projects.filter(p => p.tag === 'TECHNICAL').length;
-
-            animateStatNumber('totalProjects', total);
-            animateStatNumber('liveProjects', live);
-            animateStatNumber('technicalPosts', technical);
-        }
-
-        function animateStatNumber(elementId, target) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-            let current = 0;
-            const increment = target / 30;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                element.textContent = Math.floor(current);
-            }, 30);
-        }
-
-        // Filtering
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                const filter = tab.dataset.filter;
-                if (filter === 'all') {
-                    renderProjects(allProjects);
-                } else {
-                    renderProjects(allProjects.filter(p => p.tag === filter));
-                }
-            });
-        });
-
-        loadPageProjects();
-    </script>
-</body>
+  </body>
 </html>

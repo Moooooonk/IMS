@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://moon-key.pages.dev/sitemap.xml

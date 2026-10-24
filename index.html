@@ -1,130 +1,340 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
-    <title>MOON-KEY | 3D Computer Vision & AI Researcher</title>
-    <meta name="description" content="AI Researcher specializing in 3D computer vision, geometric deep learning, point cloud processing, and multi-view geometry.">
-    <meta name="keywords" content="3D Computer Vision, AI, Deep Learning, Point Cloud, Multi-view Geometry, Neural Networks, Camera Calibration, Depth Estimation">
-    <meta property="og:site_name" content="MOON-KEY">
-    <meta property="og:title" content="MOON-KEY | 3D Computer Vision & AI Researcher">
-    <meta property="og:description" content="Bridging geometry and intelligence. From point clouds to neural 3D reconstruction.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://moon-key.pages.dev/">
-    <meta property="og:locale" content="ko_KR">
-    <meta property="og:image" content="https://moon-key.pages.dev/og-image.png?v=2">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://moon-key.pages.dev/og-image.png?v=2">
-    <meta name="theme-color" content="#050508">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- 로딩 스크린 -->
-    <div class="loader" id="loader">
-        <span class="loader-text">MOON-KEY</span>
-    </div>
-
-    <!-- 사이드 네비게이션 -->
-    <nav class="side-nav" id="sideNav">
-        <div class="nav-dot active" data-section="hero" data-label="HOME"></div>
-        <div class="nav-dot" data-section="expertise" data-label="EXPERTISE"></div>
-        <div class="nav-dot" data-section="work" data-label="WORK"></div>
-        <div class="nav-dot" data-section="contact" data-label="CONTACT"></div>
-    </nav>
-
-    <!-- 테마 토글 -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg class="sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-        </svg>
-        <svg class="moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-    </button>
-
-    <canvas id="dct-canvas" aria-label="3D point cloud reconstruction animation visualizing the research pipeline" role="img"></canvas>
-
-    <main>
-        <section id="hero">
-            <div class="label">3D COMPUTER VISION & AI RESEARCHER</div>
-            <h1>MOON-KEY</h1>
-            <p class="subtitle">3차원 공간을 이해하는 AI 시스템을 연구합니다. 떠오르는 아이디어는 직접 구현합니다.</p>
-
-            <div class="stats-container">
-                <a href="projects.html" class="stat-item">
-                    <span class="stat-number" id="projectCount">0</span>
-                    <span class="stat-label">PROJECTS</span>
-                </a>
-                <a href="projects.html" class="stat-item clickable">
-                    <span class="stat-cta">VIEW ALL WORKS →</span>
-                </a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <title>MOON-KEY — Geometry, made tangible.</title>
+    <meta
+      name="description"
+      content="MOON-KEY의 연구와 작업. 3D 컴퓨터 비전의 수학적 원리를 탐구하고, 직접 써볼 수 있는 도구로 구현합니다."
+    />
+    <link rel="canonical" href="https://moon-key.pages.dev/" />
+    <meta property="og:site_name" content="MOON-KEY" />
+    <meta property="og:title" content="MOON-KEY — Geometry, made tangible." />
+    <meta
+      property="og:description"
+      content="3D computer vision, mathematical thinking, and things you can use."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://moon-key.pages.dev/" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta
+      property="og:image"
+      content="https://moon-key.pages.dev/og-image.png?v=20261022"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f1efe7" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css?v=20261022" />
+    <script src="main.js?v=20261022" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header wrap">
+      <a class="wordmark" href="index.html" aria-label="MOON-KEY 홈"
+        >MOON<span class="brand-mark" aria-hidden="true">✳</span>KEY</a
+      ><span class="header-note">INDEPENDENT RESEARCH & BUILDING</span>
+      <nav aria-label="주 메뉴">
+        <a href="#work">Work ↗</a><a href="#about">About</a
+        ><a href="#contact">Contact</a
+        ><button
+          class="theme-toggle"
+          type="button"
+          aria-label="어두운 테마로 전환"
+          aria-pressed="false"
+        >
+          Dark <span aria-hidden="true">◐</span>
+        </button>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-intro">
+          <span class="eyebrow"
+            ><span class="small-cross" aria-hidden="true">+</span> 3D COMPUTER
+            VISION / AI</span
+          ><span class="edition">A PERSONAL FIELD OF INQUIRY</span>
+        </div>
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <h1 id="hero-title">Geometry,<br /><em>made tangible.</em></h1>
+            <p class="hero-description">
+              공간을 이해하는 수학에서,<br />직접 경험할 수 있는 도구까지.
+            </p>
+            <a class="text-link hero-link" href="#work"
+              >작업 살펴보기 <span aria-hidden="true">↘</span></a
+            >
+          </div>
+          <figure class="geometry-figure">
+            <div class="figure-top">
+              <span>FIG. 01 / TORUS KNOT</span><span>ℝ³ → ℝ²</span>
             </div>
-
-            <div class="scroll-indicator">
-                <div class="scroll-line"></div>
-                <span class="scroll-text">SCROLL</span>
+            <canvas
+              id="geometry"
+              width="720"
+              height="640"
+              role="img"
+              aria-label="3차원 토러스 매듭을 2차원 화면에 투영한 시각화. 회전을 멈추거나 점과 선 표시를 바꿀 수 있습니다."
+            ></canvas>
+            <div class="figure-controls">
+              <div class="view-switch" role="group" aria-label="시각화 표현">
+                <button
+                  type="button"
+                  class="active"
+                  data-view="points"
+                  aria-pressed="true"
+                >
+                  POINTS</button
+                ><button type="button" data-view="lines" aria-pressed="false">
+                  LINES
+                </button>
+              </div>
+              <button id="motionToggle" type="button" aria-pressed="false">
+                회전 멈추기 Ⅱ
+              </button>
             </div>
-        </section>
-
-        <section id="expertise">
-            <div class="label">EXPERTISE</div>
-            <h2>What I Do</h2>
-            <p class="expertise-intro">수학적 엄밀함을 바탕으로 3D 데이터를 기하학적으로 해석하고, 딥러닝 기술로 구현합니다.</p>
-            <div class="expertise-grid">
-                <div class="expertise-card">
-                    <h4>3D Geometry & Reconstruction</h4>
-                    <p>Camera Calibration, Homography, Fundamental/Essential Matrix 등 다시점 기하학 이론. 포인트 클라우드 처리, 3D 복원, 깊이 추정까지 기하학 기반 비전 파이프라인 설계.</p>
+            <figcaption>
+              <span>A study in projection & perception.</span
+              ><span>드래그하여 회전</span>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="hero-bottom">
+          <p>MOON-KEY <span>/</span> Researcher & maker</p>
+          <a
+            href="https://github.com/Moooooonk"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GITHUB ↗</a
+          ><a
+            href="https://moon-key.tistory.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            >RESEARCH NOTES ↗</a
+          ><a class="down-link" href="#work" aria-label="선택한 작업으로 이동"
+            >↓</a
+          >
+        </div>
+      </section>
+      <section class="work-section" id="work" aria-labelledby="work-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <span class="eyebrow">01 / SELECTED WORK</span
+            ><span class="section-side-note">IDEAS, PUT INTO PRACTICE</span>
+          </div>
+          <div class="work-intro">
+            <h2 id="work-title">
+              From thought<br />to <em>something real.</em>
+            </h2>
+            <p>
+              원리를 이해하고, 작은 도구를 만듭니다.<br />이미지, 소리, 데이터에
+              관한 실험들.
+            </p>
+          </div>
+          <div class="selected-grid">
+            <a
+              class="featured-project"
+              href="https://miimic.pages.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="project-art color-art" aria-hidden="true">
+                <div class="color-orbit orbit-one"></div>
+                <div class="color-orbit orbit-two"></div>
+                <div class="color-orbit orbit-three"></div>
+                <span class="art-caption">L* a* b* / COLOR TRANSFER</span
+                ><span class="art-corner">01</span>
+              </div>
+              <div class="project-meta">
+                <span>IMAGE PROCESSING</span><span>WEB TOOL ↗</span>
+              </div>
+              <h3>MIIMIC</h3>
+              <p>
+                한 장의 분위기를, 다른 한 장으로.<br />색 공간의 통계로 구현한
+                이미지 색감 전이.
+              </p></a
+            >
+            <a
+              class="featured-project"
+              href="https://lexnsound.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="project-art sound-art" aria-hidden="true">
+                <div class="waveform">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                  ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                  ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                  ><i></i><i></i><i></i><i></i><i></i><i></i>
                 </div>
-                <div class="expertise-card">
-                    <h4>Deep Learning for Vision</h4>
-                    <p>CNN, Transformer 등 비전 아키텍처 이해와 구현. 이미지 분류, 객체 탐지부터 Neural Implicit Representation까지 딥러닝 기반 비전 시스템 개발.</p>
-                </div>
-                <div class="expertise-card">
-                    <h4>Mathematical Foundation</h4>
-                    <p>선형대수, 사영기하학, 최적화 이론 등 수학적 기반. 알고리즘의 수학적 원리를 이해하고 새로운 문제에 적용하는 연구 역량.</p>
-                </div>
-                <div class="expertise-card">
-                    <h4>Research & Implementation</h4>
-                    <p>최신 논문 분석부터 PyTorch 구현까지 연구의 전 과정 수행. 체계적인 실험 설계와 명료한 글쓰기로 연구 내용을 전달.</p>
-                </div>
+                <span class="frequency">440<span>Hz</span></span
+                ><span class="art-caption">SIGNAL / PRACTICE / FEEDBACK</span
+                ><span class="art-corner">02</span>
+              </div>
+              <div class="project-meta">
+                <span>DIGITAL SIGNAL PROCESSING</span><span>WEB APP ↗</span>
+              </div>
+              <h3>LexNSound</h3>
+              <p>
+                연습하는 소리를, 읽을 수 있는 피드백으로.<br />실시간 음성 분석과
+                음감 훈련 도구.
+              </p></a
+            >
+          </div>
+          <div class="work-row">
+            <span class="row-index">03</span>
+            <div>
+              <h3>Aut-Veritas</h3>
+              <p>AI와 사람이 쓴 글을 구분하며, 판단의 근거를 돌아보는 훈련.</p>
             </div>
-        </section>
-
-        <section id="work">
-            <div class="label">WORK</div>
-            <h2>Projects & Writing</h2>
-            <div class="grid" id="projectsGrid">
-                <!-- 프로젝트는 projects.json에서 동적으로 로드됩니다 -->
+            <span class="row-tag">MEDIA LITERACY</span
+            ><a
+              href="https://aut-veritas.pages.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Aut-Veritas 열기"
+              >↗</a
+            >
+          </div>
+          <div class="work-row">
+            <span class="row-index">04</span>
+            <div>
+              <h3>XRPedia</h3>
+              <p>
+                문서 유사도와 자동 분류. XRPL Korea 해커톤 최우수상 수상
+                프로젝트.
+              </p>
             </div>
-            <a href="projects.html" class="view-all-link">VIEW ALL PROJECTS →</a>
-        </section>
-
-        <section id="contact">
-            <div class="label">CONTACT</div>
-            <h2>Let's Connect</h2>
-            <p class="subtitle">연구 협업, 기술 자문, 또는 학술적 논의를 환영합니다.</p>
-            <div class="contact-links">
-                <a href="mailto:j3323968@gmail.com" class="contact-link">EMAIL</a>
-                <a href="https://moon-key.tistory.com" target="_blank" rel="noopener noreferrer" class="contact-link">BLOG</a>
+            <span class="row-tag">NLP / INFORMATION RETRIEVAL</span
+            ><a
+              href="https://github.com/XRPL-Hackathon/server-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="XRPedia GitHub 열기"
+              >↗</a
+            >
+          </div>
+          <a class="archive-link" href="projects.html"
+            ><span>전체 작업과 글 보기</span
+            ><span>EXPLORE THE INDEX <span aria-hidden="true">↗</span></span></a
+          >
+        </div>
+      </section>
+      <section
+        class="about-section wrap"
+        id="about"
+        aria-labelledby="about-title"
+      >
+        <div class="section-heading">
+          <span class="eyebrow">02 / APPROACH</span
+          ><span class="section-side-note"
+            >UNDERSTAND. IMPLEMENT. QUESTION.</span
+          >
+        </div>
+        <div class="about-layout">
+          <h2 id="about-title">
+            A little rigor.<br />A lot of <em>curiosity.</em>
+          </h2>
+          <div class="about-copy">
+            <p class="about-lead">보이는 것 너머의 구조를 탐구합니다.</p>
+            <p>
+              3차원 공간을 이해하는 컴퓨터 비전을 공부하고 연구합니다. 기하학의
+              수식이 실제 데이터에서 어떻게 작동하는지, 이론의 가정이 어디에서
+              깨지는지에 관심이 있습니다.
+            </p>
+            <p>
+              논문을 읽고, 코드로 옮기고, 직접 사용해볼 수 있는 형태로 만듭니다.
+              연구 노트와 웹 프로젝트는 그 과정을 기록하는 두 가지 방식입니다.
+            </p>
+            <div class="expertise-list">
+              <div>
+                <span>01</span>
+                <h3>Geometry & reconstruction</h3>
+                <p>Multi-view geometry · Point clouds · Depth estimation</p>
+              </div>
+              <div>
+                <span>02</span>
+                <h3>Learning & implementation</h3>
+                <p>Vision models · PyTorch · Experiments</p>
+              </div>
+              <div>
+                <span>03</span>
+                <h3>Tools & experiments</h3>
+                <p>Image processing · Signal analysis · Interactive web</p>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
+      <section class="notes-section wrap" aria-labelledby="notes-title">
+        <div class="section-heading">
+          <span class="eyebrow">03 / FIELD NOTES</span
+          ><a
+            href="https://moon-key.tistory.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-link"
+            >블로그 전체 보기 ↗</a
+          >
+        </div>
+        <h2 id="notes-title">Thinking, <em>in writing.</em></h2>
+        <div class="notes-list">
+          <a
+            href="https://moon-key.tistory.com/category/3D%20Computer%20Vision"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span>GEOMETRY</span>
+            <h3>Fundamental & Essential Matrix</h3>
+            <span aria-hidden="true">↗</span></a
+          ><a
+            href="https://moon-key.tistory.com/78"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span>MATHEMATICS</span>
+            <h3>DCT의 수학적 원리</h3>
+            <span aria-hidden="true">↗</span></a
+          ><a
+            href="https://moon-key.tistory.com/30"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span>DEEP LEARNING</span>
+            <h3>미분 가능한 JPEG 압축 레이어</h3>
+            <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <section
+        class="contact-section"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="wrap">
+          <span class="eyebrow">04 / SAY HELLO</span>
+          <div class="contact-layout">
+            <h2 id="contact-title">
+              Good questions<br />start <em>conversations.</em>
+            </h2>
+            <div>
+              <p>
+                연구에 관한 질문도, 함께 만들어볼 아이디어도.<br />편하게 이야기
+                나눠요.
+              </p>
+              <a class="contact-email" href="mailto:j3323968@gmail.com"
+                >j3323968@gmail.com <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-
-    <footer>
-        <span>&copy; 2026 MOON-KEY</span>
-        <span>Built with mathematical rigor</span>
+    <footer class="site-footer wrap">
+      <a class="wordmark" href="index.html"
+        >MOON<span class="brand-mark" aria-hidden="true">✳</span>KEY</a
+      ><span>© 2026 MOON-KEY</span><a href="#main">BACK TO TOP ↑</a>
     </footer>
-
-    <script src="main.js"></script>
-</body>
+  </body>
 </html>
