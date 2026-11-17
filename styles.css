@@ -634,6 +634,146 @@ h2 {
   margin-top: 8px;
   line-height: 1.8;
 }
+.research-section {
+  margin-top: 72px;
+  border-top: 1px solid var(--line);
+}
+.research-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding-block: 32px;
+}
+.research-heading h3 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -1.4px;
+}
+.research-heading h3 em {
+  font-family: var(--serif);
+  font-weight: 400;
+}
+.research-summary {
+  max-width: 350px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+.publication-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+}
+.publication {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 32px;
+  padding-block: 30px 32px;
+  border-top: 1px solid var(--line);
+}
+.publication-meta {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 4px;
+}
+.publication-index {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.7px;
+}
+.publication-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.publication-status::before {
+  content: "";
+  flex: 0 0 5px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+.publication-status[data-status="published"] {
+  color: var(--ink);
+}
+.publication-status[data-status="published"]::before {
+  background: currentColor;
+}
+.publication-status[data-status="accepted"] {
+  color: var(--ink);
+}
+.publication-status[data-status="accepted"]::before {
+  color: var(--accent);
+}
+.publication-body {
+  min-width: 0;
+}
+.publication-body h4 {
+  max-width: 900px;
+  margin: 0 0 13px;
+  font-family: var(--serif);
+  font-size: clamp(23px, 2.2vw, 28px);
+  font-weight: 400;
+  line-height: 1.32;
+  letter-spacing: -0.35px;
+  overflow-wrap: anywhere;
+}
+.publication-authors,
+.publication-venue {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.publication-authors strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.publication-venue {
+  margin-top: 3px;
+}
+.publication-description {
+  max-width: 790px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.publication-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 15px;
+  padding-block: 5px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.publication-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.research-updated {
+  margin-top: 17px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
 .notes-section {
   padding-block: 18px 76px;
 }
@@ -1130,6 +1270,42 @@ h2 {
   .expertise-list {
     margin-top: 25px;
   }
+  .research-section {
+    margin-top: 44px;
+  }
+  .research-heading {
+    display: block;
+    padding-block: 26px;
+  }
+  .research-heading h3 {
+    font-size: 32px;
+    letter-spacing: -1px;
+  }
+  .research-summary {
+    margin-top: 16px;
+    max-width: 100%;
+  }
+  .publication {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 17px;
+    padding-block: 24px 28px;
+  }
+  .publication-meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    padding-top: 0;
+  }
+  .publication-body h4 {
+    font-size: 23px;
+    line-height: 1.35;
+    letter-spacing: -0.2px;
+  }
+  .publication-description {
+    font-size: 12px;
+  }
   .notes-section {
     padding-block: 0 42px;
   }
@@ -1244,6 +1420,17 @@ h2 {
   }
   .index-card .tag {
     font-size: 8px;
+  }
+}
+@media (max-width: 540px) {
+  .site-header {
+    flex-wrap: wrap;
+    row-gap: 14px;
+  }
+  .site-header nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
   }
 }
 @media (max-width: 420px) {
