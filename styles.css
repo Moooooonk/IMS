@@ -689,33 +689,43 @@ h2 {
   line-height: 1.6;
   letter-spacing: 0.7px;
 }
-.publication-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.7;
-}
-.publication-status::before {
-  content: "";
-  flex: 0 0 5px;
-  width: 5px;
-  height: 5px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-}
-.publication-status[data-status="published"] {
+.research-topic {
   color: var(--ink);
+  font-size: 12px;
+  line-height: 1.8;
 }
-.publication-status[data-status="published"]::before {
-  background: currentColor;
-}
-.publication-status[data-status="accepted"] {
+.research-question {
+  margin-top: 12px;
   color: var(--ink);
+  font-size: 15px;
+  line-height: 1.8;
+  word-break: keep-all;
 }
-.publication-status[data-status="accepted"]::before {
-  color: var(--accent);
+.research-reference {
+  margin-top: 20px;
+}
+.research-reference summary {
+  width: fit-content;
+  padding: 7px 4px 7px 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+.research-reference summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 5px;
+}
+.reference-body {
+  margin-top: 12px;
+  padding: 4px 0 4px 20px;
+  border-left: 1px solid var(--line);
+}
+.reference-body h5 {
+  margin: 0 0 12px;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 .publication-body {
   min-width: 0;
@@ -749,7 +759,7 @@ h2 {
   max-width: 790px;
   margin-top: 14px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.9;
   word-break: keep-all;
   overflow-wrap: anywhere;
@@ -767,13 +777,6 @@ h2 {
 .publication-link:hover {
   color: var(--accent);
   border-color: var(--accent);
-}
-.research-updated {
-  margin-top: 17px;
-  color: var(--muted);
-  font-size: 10px;
-  line-height: 1.8;
-  word-break: keep-all;
 }
 .notes-section {
   padding-block: 18px 76px;

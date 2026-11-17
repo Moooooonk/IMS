@@ -31,7 +31,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="stylesheet" href="styles.css?v=20261117-2" />
+    <link rel="stylesheet" href="styles.css?v=20261117-3" />
     <script src="main.js?v=20261022" defer></script>
   </head>
   <body>
@@ -272,101 +272,145 @@
         <section class="research-section" id="research" aria-labelledby="research-title">
           <header class="research-heading">
             <div>
-              <span class="eyebrow">PAPERS / 2026</span>
-              <h3 id="research-title">Research &amp; <em>publications.</em></h3>
-              <p class="research-summary">3D 비전과 생성 모델의 제어·평가를 다룬 연구.</p>
-              <a class="publication-link" href="#patents">특허 출원 1건 <span aria-hidden="true">↓</span></a>
+              <span class="eyebrow">SELECTED RESEARCH</span>
+              <h3 id="research-title">Geometry &amp; <em>generation.</em></h3>
+              <p class="research-summary">불완전한 관측에서 3D 구조를 복원하고, 생성 모델이 의도한 장면을 따르는 조건을 탐구합니다.</p>
             </div>
-            <p class="research-summary">게재 2편 · 게재 확정 1편 · 심사 결과 대기 1편</p>
+            <a class="publication-link" href="#patents">공동발명 연구 <span aria-hidden="true">↓</span></a>
           </header>
           <ol class="publication-list">
             <li>
-              <article class="publication" aria-labelledby="paper-eye-title">
+              <article class="publication" aria-labelledby="research-face-title">
                 <div class="publication-meta">
-                  <span class="publication-index">01 / 2026</span>
-                  <span class="publication-status" data-status="published">게재 · Online First</span>
+                  <span class="publication-index">01 / 3D VISION</span>
+                  <span class="research-topic">얼굴 복원과 정합</span>
                 </div>
                 <div class="publication-body">
-                  <h4 id="paper-eye-title" lang="en">Eye-Preserving 3D Face Registration Using Single-Image Reconstruction and Failure-Type Stratification</h4>
-                  <p class="publication-authors" lang="en"><strong>Moonki Park</strong>, Doheyon Park, Gunwoo Kim, Soonchul Kwon, Mujung Kim, Bongsaeng Kim, Eungi Hong, Eunhyun Bae, Seowon Yang, Jisang Yoo</p>
-                  <p class="publication-venue"><span lang="en">Computer Modeling in Engineering &amp; Sciences (CMES)</span> · <time datetime="2026-11-02">2026.11.02</time> 온라인 게재</p>
-                  <p class="publication-description">단일 이미지로 복원한 3D 얼굴을 스캔 데이터에 정합하는 방법을 연구했습니다. 눈 주변 구조를 보존하면서 실패 유형별 복구와 품질 검증을 결합합니다.</p>
-                  <a class="publication-link" href="https://doi.org/10.32604/cmes.2026.089502" target="_blank" rel="noopener noreferrer" aria-label="Eye-Preserving 3D Face Registration 논문 읽기, DOI">논문 읽기 <span aria-hidden="true">↗</span><span class="sr-only"> 새 탭</span></a>
+                  <h4 id="research-face-title">사진에서 복원한 얼굴을 실제 스캔에 맞추는 방법.</h4>
+                  <p class="research-question">두 얼굴의 표면을 맞추면서, 눈 주변의 구조도 보존할 수 있을까?</p>
+                  <p class="publication-description">단일 이미지로 복원한 얼굴 메쉬와 3D 스캔 사이의 정합을 연구했습니다. 눈 영역의 형상을 보존하는 보정, 실패 유형에 따른 복구, 정합 결과의 품질 검증을 함께 다뤘습니다.</p>
+                  <details class="research-reference">
+                    <summary>관련 논문</summary>
+                    <div class="reference-body">
+                      <h5 id="paper-eye-title" lang="en">Eye-Preserving 3D Face Registration Using Single-Image Reconstruction and Failure-Type Stratification</h5>
+                      <p class="publication-authors" lang="en"><strong>Moonki Park</strong>, Doheyon Park, Gunwoo Kim, Soonchul Kwon, Mujung Kim, Bongsaeng Kim, Eungi Hong, Eunhyun Bae, Seowon Yang, Jisang Yoo</p>
+                      <p class="publication-venue"><span lang="en">Computer Modeling in Engineering &amp; Sciences (CMES)</span> · 2026</p>
+                      <a class="publication-link" href="https://doi.org/10.32604/cmes.2026.089502" target="_blank" rel="noopener noreferrer" aria-label="Eye-Preserving 3D Face Registration 논문 읽기, DOI">논문 읽기 <span aria-hidden="true">↗</span><span class="sr-only"> 새 탭</span></a>
+                    </div>
+                  </details>
                 </div>
               </article>
             </li>
             <li>
-              <article class="publication" aria-labelledby="paper-sparc-title">
+              <article class="publication" aria-labelledby="research-prompt-title">
                 <div class="publication-meta">
-                  <span class="publication-index">02 / 2026</span>
-                  <span class="publication-status" data-status="published">게재 · Proceedings</span>
+                  <span class="publication-index">02 / GENERATION</span>
+                  <span class="research-topic">프롬프트의 일관성</span>
                 </div>
                 <div class="publication-body">
-                  <h4 id="paper-sparc-title" lang="en">SPARC: Visual Contract Normalization Robust to Surface-Form Prompt Perturbations</h4>
-                  <p class="publication-authors" lang="en"><strong>MoonKi Park</strong>, HyunJun Park, Mujung Kim, Jisang Yoo, Soonchul Kwon</p>
-                  <p class="publication-venue"><span lang="en">IICCC 2026 · Smart Convergence of Culture Technology Letters (SCCTL), Vol. 12, pp. 63–70</span></p>
-                  <p class="publication-description">같은 의도의 프롬프트를 공통된 시각 명세로 정규화합니다. 표현 순서나 불필요한 문구가 바뀌어도 객체·속성·공간 관계가 얼마나 일관되게 유지되는지 평가했습니다.</p>
-                  <a class="publication-link" href="https://www.ipact.kr/support/conference_view.php?bbs_code=conference&amp;idx=505&amp;page=1&amp;sch_open=Y" target="_blank" rel="noopener noreferrer" aria-label="SPARC가 수록된 IICCC 2026 공식 논문집 안내">학회 논문집 <span aria-hidden="true">↗</span><span class="sr-only"> 새 탭</span></a>
+                  <h4 id="research-prompt-title">프롬프트를 객체·속성·공간 관계로 구조화하기.</h4>
+                  <p class="research-question">단어의 순서와 부가 문구가 바뀌면 생성 결과는 얼마나 달라질까?</p>
+                  <p class="publication-description">프롬프트의 의도를 객체·속성·공간 관계로 정리하는 SPARC를 연구했습니다. 같은 뜻을 다른 표현으로 전달했을 때, 공통된 시각 명세가 생성 결과의 일관성에 미치는 영향을 평가했습니다.</p>
+                  <details class="research-reference">
+                    <summary>관련 논문</summary>
+                    <div class="reference-body">
+                      <h5 id="paper-sparc-title" lang="en">SPARC: Visual Contract Normalization Robust to Surface-Form Prompt Perturbations</h5>
+                      <p class="publication-authors" lang="en"><strong>MoonKi Park</strong>, HyunJun Park, Mujung Kim, Jisang Yoo, Soonchul Kwon</p>
+                      <p class="publication-venue"><span lang="en">IICCC 2026 · Smart Convergence of Culture Technology Letters (SCCTL), Vol. 12, pp. 63–70</span></p>
+                      <a class="publication-link" href="https://www.ipact.kr/support/conference_view.php?bbs_code=conference&amp;idx=505&amp;page=1&amp;sch_open=Y" target="_blank" rel="noopener noreferrer" aria-label="SPARC가 수록된 IICCC 2026 공식 논문집 안내">학회 논문집 <span aria-hidden="true">↗</span><span class="sr-only"> 새 탭</span></a>
+                    </div>
+                  </details>
                 </div>
               </article>
             </li>
             <li>
-              <article class="publication" aria-labelledby="paper-emc-title">
+              <article class="publication" aria-labelledby="research-spatial-title">
                 <div class="publication-meta">
-                  <span class="publication-index">03 / 2026</span>
-                  <span class="publication-status" data-status="accepted">게재 확정 · Accepted</span>
+                  <span class="publication-index">03 / SPATIAL CONTROL</span>
+                  <span class="research-topic">3D 공간 참조</span>
                 </div>
                 <div class="publication-body">
-                  <h4 id="paper-emc-title" lang="en">Evaluating 3D Spatial References in Executable Motion Contracts</h4>
-                  <p class="publication-authors" lang="en"><strong>Moonki Park</strong>, HyeonJun Park, Soonchul Kwon, Jisang Yoo</p>
-                  <p class="publication-venue"><span lang="en">Korean Journal of Artificial Intelligence (KJAI)</span> · 인공지능연구</p>
-                  <p class="publication-description">편집 가능한 객체·카메라 정보를 공간 참조 이미지로 변환하고, 참조의 표현과 구성 방식이 생성 이미지의 공간 충실도에 미치는 영향을 평가했습니다.</p>
+                  <h4 id="research-spatial-title">3D 장면을 생성 모델이 읽을 수 있는 참조로.</h4>
+                  <p class="research-question">객체와 카메라의 배치를 어떤 형태로 보여줘야 의도가 전달될까?</p>
+                  <p class="publication-description">편집 가능한 객체·카메라 정보에서 공간 참조 이미지를 만드는 과정을 연구했습니다. 참조의 표현과 구성 방식을 바꾸며, 생성 이미지가 계획한 공간 배치를 얼마나 따르는지 비교했습니다.</p>
+                  <details class="research-reference">
+                    <summary>연구 원고</summary>
+                    <div class="reference-body">
+                      <h5 id="paper-emc-title" lang="en">Evaluating 3D Spatial References in Executable Motion Contracts</h5>
+                      <p class="publication-authors" lang="en"><strong>Moonki Park</strong>, HyeonJun Park, Soonchul Kwon, Jisang Yoo</p>
+                    </div>
+                  </details>
                 </div>
               </article>
             </li>
             <li>
-              <article class="publication" aria-labelledby="paper-digicon-title">
+              <article class="publication" aria-labelledby="research-video-title">
                 <div class="publication-meta">
-                  <span class="publication-index">04 / 2026</span>
-                  <span class="publication-status" data-status="review">심사 결과 대기</span>
+                  <span class="publication-index">04 / VIDEO GENERATION</span>
+                  <span class="research-topic">외형과 배치의 관계</span>
                 </div>
                 <div class="publication-body">
-                  <h4 id="paper-digicon-title" lang="en">Appearance and Layout Tradeoffs in 3D Guided Video Generation</h4>
-                  <p class="publication-authors" lang="en"><strong>Moonki Park</strong>, HyeonJun Park, Soonchul Kwon, Jisang Yoo</p>
-                  <p class="publication-venue"><span lang="en">DigiCon26 · Track 2</span> 투고</p>
-                  <p class="publication-description">3D 참조 이미지의 외형을 개선하는 과정이 생성 영상의 사실감과 공간 배치 정확도 사이에 만드는 상충 관계를 비교했습니다.</p>
+                  <h4 id="research-video-title">더 사실적인 영상은 공간 배치도 더 정확할까?</h4>
+                  <p class="publication-description">3D 참조 이미지의 외형을 개선했을 때 생성 영상에 나타나는 변화를 살펴봤습니다. 사실감과 공간 배치 정확도를 함께 비교하며, 두 목표 사이의 상충 관계를 연구했습니다.</p>
+                  <details class="research-reference">
+                    <summary>연구 원고</summary>
+                    <div class="reference-body">
+                      <h5 id="paper-digicon-title" lang="en">Appearance and Layout Tradeoffs in 3D Guided Video Generation</h5>
+                      <p class="publication-authors" lang="en"><strong>Moonki Park</strong>, HyeonJun Park, Soonchul Kwon, Jisang Yoo</p>
+                    </div>
+                  </details>
                 </div>
               </article>
             </li>
           </ol>
-          <p class="research-updated">연구 현황 · <time datetime="2026-11-17">2026.11.17</time> 기준</p>
         </section>
         <section class="research-section" id="patents" aria-labelledby="patents-title">
           <header class="research-heading">
             <div>
-              <span class="eyebrow">PATENTS / 2026</span>
-              <h3 id="patents-title">Patent <em>applications.</em></h3>
+              <span class="eyebrow">COLLABORATIVE INVENTIONS</span>
+              <h3 id="patents-title">Invention &amp; <em>collaboration.</em></h3>
+              <p class="research-summary">3D 형상과 생성 참조를 다루는 특허 연구에 공동발명자로 참여했습니다.</p>
             </div>
-            <p class="research-summary">국내 특허 출원 1건</p>
+            <p class="research-summary">공동발명 · 박문기<br />권리 귀속 · 광운대학교 산학협력단</p>
           </header>
           <ol class="publication-list">
             <li>
               <article class="publication" aria-labelledby="patent-face-title">
                 <div class="publication-meta">
-                  <span class="publication-index">01 / KR</span>
-                  <span class="publication-status" data-status="filed">출원</span>
+                  <span class="publication-index">01 / FACE GEOMETRY</span>
+                  <span class="research-topic">얼굴 복원과 정합</span>
                 </div>
                 <div class="publication-body">
-                  <h4 id="patent-face-title">실패 유형 분기 및 눈 영역 보존형 보정에 기반한 단일 영상 복원 얼굴 메쉬와 3차원 얼굴 스캔 데이터 간의 정합 시스템 및 방법</h4>
-                  <p class="publication-authors">발명자 · <strong>박문기</strong>, 유지상, 권순철, 박도현</p>
-                  <p class="publication-venue">출원번호 · 10-2026-0161233</p>
-                  <p class="publication-venue">출원일 · <time datetime="2026-08-26">2026.08.26</time></p>
-                  <p class="publication-venue">출원인 · 광운대학교 산학협력단</p>
+                  <h4 id="patent-face-title">얼굴 메쉬와 3D 스캔의 정합.</h4>
+                  <p class="publication-description">서로 다른 방식으로 얻은 얼굴 형상을 정합하고, 복원 결과의 신뢰성을 높이는 연구.</p>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="publication" aria-labelledby="patent-volume-title">
+                <div class="publication-meta">
+                  <span class="publication-index">02 / 3D MEASUREMENT</span>
+                  <span class="research-topic">형상 복원과 체적</span>
+                </div>
+                <div class="publication-body">
+                  <h4 id="patent-volume-title">신체 구간의 3D 복원과 체적 측정.</h4>
+                  <p class="publication-description">신체 구간을 3D 형상으로 복원하고, 체적을 추정하는 연구.</p>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article class="publication" aria-labelledby="patent-reference-title">
+                <div class="publication-meta">
+                  <span class="publication-index">03 / VISUAL REFERENCE</span>
+                  <span class="research-topic">생성 참조의 외형</span>
+                </div>
+                <div class="publication-body">
+                  <h4 id="patent-reference-title">생성 참조 이미지의 표면 보정.</h4>
+                  <p class="publication-description">3D 장면을 바탕으로 만든 참조 이미지의 외형을 다듬고, 생성 모델에 전달하는 연구.</p>
                 </div>
               </article>
             </li>
           </ol>
-          <p class="research-updated">출원 현황 · <time datetime="2026-11-17">2026.11.17</time> 기준</p>
         </section>
       </section>
       <section class="notes-section wrap" aria-labelledby="notes-title">
