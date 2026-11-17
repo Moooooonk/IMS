@@ -1,9 +1,10 @@
 name: Validate portfolio
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+
+# Every production push runs this validation in Cloudflare Pages before publishing.
+# Keep Actions available on demand without requiring paid GitHub runner access.
 
 permissions:
   contents: read
