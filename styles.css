@@ -728,6 +728,7 @@ h2 {
   font-weight: 400;
   line-height: 1.32;
   letter-spacing: -0.35px;
+  word-break: keep-all;
   overflow-wrap: anywhere;
 }
 .publication-authors,
